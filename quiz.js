@@ -3,9 +3,9 @@
  * 5-step engagement quiz + contact form
  */
 
-// Configuration - UPDATE THESE VALUES
-const SUPABASE_FUNCTION_URL = 'https://YOUR_PROJECT.supabase.co/functions/v1/submit-lead';
-const REDIRECT_URL = 'https://YOUR_BEMOB_CAMPAIGN_URL'; // BeMob campaign link
+// Configuration - UPDATE REDIRECT_URL with your BeMob campaign link
+const SUPABASE_FUNCTION_URL = 'https://rovbqnncmzltdyeeldxz.supabase.co/functions/v1/submit-lead';
+const REDIRECT_URL = 'https://YOUR_BEMOB_CAMPAIGN_URL'; // BeMob campaign link - UPDATE THIS
 
 // Quiz state
 let currentStep = 1;
@@ -215,14 +215,11 @@ async function submitForm(event) {
   const originalText = submitBtn.innerHTML;
   
   // Get form data
-  const formData = {
-    first_name: document.getElementById('first_name').value.trim(),
-    last_name: document.getElementById('last_name').value.trim(),
-    email: document.getElementById('email').value.trim(),
-    phone: document.getElementById('phone').value.trim(),
-    zip: document.getElementById('zip').value.trim(),
-    source: 'gametestershub'
-  };
+  const firstName = document.getElementById('first_name').value.trim();
+  const lastName = document.getElementById('last_name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const zip = document.getElementById('zip').value.trim();
   
   // Get tracking data
   let trackingInfo = {};
@@ -230,12 +227,18 @@ async function submitForm(event) {
     trackingInfo = window.GameTestersTracking.getTrackingData();
   }
   
-  // Merge data
+  // Build payload matching Supabase edge function schema
   const payload = {
-    ...formData,
+    email,
+    firstName,
+    lastName,
+    phone,
+    zip,
     uuid: trackingInfo.uuid || generateFallbackUUID(),
     fbc: trackingInfo.fbc || null,
-    fbclid: trackingInfo.fbclid || null
+    fbclid: trackingInfo.fbclid || null,
+    fbp: trackingInfo.fbp || null,
+    source: 'gametestershub'
   };
   
   // Show loading state

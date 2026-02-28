@@ -3,8 +3,8 @@
  * Handles FB Pixel, fbclid capture, and fbc cookie generation
  */
 
-// Configuration - UPDATE THESE VALUES
-const FB_PIXEL_ID = 'YOUR_PIXEL_ID'; // Replace with your Facebook Pixel ID
+// Configuration
+const FB_PIXEL_ID = '1635681097458226';
 
 // Initialize tracking data
 const trackingData = {

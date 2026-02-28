@@ -17,12 +17,12 @@
       <div class="hero-badge">Limited Spots Available</div>
       <h1>Get Paid to Play<br><span class="gradient-text">Video Games</span> From Home</h1>
       <p class="hero-subtitle">Join 10,000+ gamers earning $20-$50/hour testing unreleased games for top studios</p>
-      <button class="cta-button primary" onclick="openQuiz()">
+      <a href="/start" class="cta-button primary">
         See If You Qualify
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M5 12h14M12 5l7 7-7 7"/>
         </svg>
-      </button>
+      </a>
       <div class="trust-badges">
         <div class="trust-item">
           <span class="trust-number">10,000+</span>
@@ -135,12 +135,12 @@
           <p>Play games, provide feedback, and get paid for your time</p>
         </div>
       </div>
-      <button class="cta-button primary" onclick="openQuiz()">
+      <a href="/start" class="cta-button primary">
         Start Your Quiz Now
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M5 12h14M12 5l7 7-7 7"/>
         </svg>
-      </button>
+      </a>
     </div>
   </section>
 
@@ -255,12 +255,12 @@
     <div class="container">
       <h2>Ready to Get Paid for Playing Games?</h2>
       <p>Take our 60-second quiz to see if you qualify for game testing opportunities</p>
-      <button class="cta-button primary large" onclick="openQuiz()">
+      <a href="/start" class="cta-button primary large">
         Check My Eligibility
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M5 12h14M12 5l7 7-7 7"/>
         </svg>
-      </button>
+      </a>
       <p class="cta-subtext">Free to join • No credit card required</p>
     </div>
   </section>
@@ -275,26 +275,6 @@
       </div>
     </div>
   </footer>
-
-  <!-- Quiz Modal -->
-  <div id="quiz-modal" class="quiz-modal">
-    <div class="quiz-container">
-      <button class="quiz-close" onclick="closeQuiz()">&times;</button>
-      
-      <!-- Progress Bar -->
-      <div class="quiz-progress">
-        <div class="quiz-progress-bar" id="progress-bar"></div>
-      </div>
-      <div class="quiz-step-indicator">
-        <span id="current-step">1</span> of 6
-      </div>
-
-      <!-- Quiz Steps -->
-      <div id="quiz-content">
-        <!-- Steps injected by quiz.js -->
-      </div>
-    </div>
-  </div>
 
   <script src="tracking.js"></script>
   <script src="quiz.js"></script>

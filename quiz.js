@@ -1,6 +1,7 @@
 /**
  * GameTestersHub - Quiz Funnel
  * 5-step engagement quiz + contact form
+ * Page-based funnel (not modal)
  */
 
 // Configuration - UPDATE REDIRECT_URL with your BeMob campaign link
@@ -22,6 +23,7 @@ const quizSteps = [
       { value: 'rpg', label: 'RPG / Adventure' },
       { value: 'sports', label: 'Sports / Racing' },
       { value: 'puzzle', label: 'Puzzle / Strategy' },
+      { value: 'casino', label: 'Casino / Slots' },
       { value: 'all', label: 'I love all types!' }
     ]
   },
@@ -71,12 +73,11 @@ const quizSteps = [
 ];
 
 /**
- * Open quiz modal
+ * Initialize funnel on page load
  */
-function openQuiz() {
-  const modal = document.getElementById('quiz-modal');
-  modal.classList.add('active');
-  document.body.style.overflow = 'hidden';
+function initFunnel() {
+  const container = document.getElementById('funnel-content');
+  if (!container) return; // Not on funnel page
   
   // Track quiz start
   if (window.GameTestersTracking) {
@@ -87,90 +88,123 @@ function openQuiz() {
 }
 
 /**
- * Close quiz modal
- */
-function closeQuiz() {
-  const modal = document.getElementById('quiz-modal');
-  modal.classList.remove('active');
-  document.body.style.overflow = '';
-  
-  // Reset quiz state
-  currentStep = 1;
-  Object.keys(quizAnswers).forEach(key => delete quizAnswers[key]);
-  updateProgress();
-}
-
-/**
  * Update progress bar
  */
 function updateProgress() {
   const progressBar = document.getElementById('progress-bar');
   const stepIndicator = document.getElementById('current-step');
+  const totalIndicator = document.getElementById('total-steps');
+  const backNav = document.getElementById('funnel-nav');
   
-  const progress = (currentStep / totalSteps) * 100;
-  progressBar.style.width = `${progress}%`;
-  stepIndicator.textContent = currentStep;
+  if (progressBar) {
+    const progress = (currentStep / totalSteps) * 100;
+    progressBar.style.width = `${progress}%`;
+  }
+  
+  if (stepIndicator) {
+    stepIndicator.textContent = currentStep;
+  }
+  
+  if (totalIndicator) {
+    totalIndicator.textContent = totalSteps;
+  }
+  
+  // Show back button after first step
+  if (backNav) {
+    backNav.style.display = currentStep > 1 ? 'flex' : 'none';
+  }
+}
+
+/**
+ * Go back one step
+ */
+function goBack() {
+  if (currentStep > 1) {
+    currentStep--;
+    renderStep();
+  }
 }
 
 /**
  * Render current step
  */
 function renderStep() {
-  const container = document.getElementById('quiz-content');
+  const container = document.getElementById('funnel-content');
+  if (!container) return;
+  
   updateProgress();
   
-  if (currentStep <= quizSteps.length) {
-    // Render quiz question
-    const step = quizSteps[currentStep - 1];
-    container.innerHTML = `
-      <div class="quiz-step">
-        <h3>${step.question}</h3>
-        <div class="quiz-options">
-          ${step.options.map(opt => `
-            <button class="quiz-option" onclick="selectOption('${step.id}', '${opt.value}')">
-              ${opt.label}
-            </button>
-          `).join('')}
+  // Add fade-out animation
+  container.classList.add('fade-out');
+  
+  setTimeout(() => {
+    if (currentStep <= quizSteps.length) {
+      // Render quiz question
+      const step = quizSteps[currentStep - 1];
+      container.innerHTML = `
+        <div class="funnel-step">
+          <h2 class="funnel-question">${step.question}</h2>
+          <div class="funnel-options">
+            ${step.options.map(opt => `
+              <button class="funnel-option" onclick="selectOption('${step.id}', '${opt.value}', this)">
+                ${opt.label}
+              </button>
+            `).join('')}
+          </div>
         </div>
-      </div>
-    `;
-  } else {
-    // Render contact form
-    renderContactForm();
-  }
+      `;
+    } else {
+      // Render contact form
+      renderContactForm();
+    }
+    
+    // Fade in
+    container.classList.remove('fade-out');
+    container.classList.add('fade-in');
+    
+    setTimeout(() => {
+      container.classList.remove('fade-in');
+    }, 300);
+  }, 150);
 }
 
 /**
  * Select quiz option and advance
  */
-function selectOption(questionId, value) {
+function selectOption(questionId, value, button) {
   quizAnswers[questionId] = value;
   
   // Visual feedback
-  const options = document.querySelectorAll('.quiz-option');
+  const options = document.querySelectorAll('.funnel-option');
   options.forEach(opt => opt.classList.remove('selected'));
-  event.target.classList.add('selected');
+  button.classList.add('selected');
   
   // Advance after brief delay
   setTimeout(() => {
     currentStep++;
     renderStep();
-  }, 200);
+  }, 250);
 }
 
 /**
  * Render contact form (final step)
  */
 function renderContactForm() {
-  const container = document.getElementById('quiz-content');
+  const container = document.getElementById('funnel-content');
   
   container.innerHTML = `
-    <div class="quiz-step">
-      <h3>Great news! You qualify.</h3>
-      <p style="text-align: center; color: var(--text-secondary); margin-bottom: 24px;">
-        Enter your details to receive game testing opportunities
-      </p>
-      <form class="contact-form" onsubmit="submitForm(event)">
+    <div class="funnel-step">
+      <div class="funnel-success-badge">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+        You Qualify!
+      </div>
+      <h2 class="funnel-question">Great news! You're eligible for testing opportunities.</h2>
+      <p class="funnel-subtext">Enter your details below to receive game testing offers matched to your profile.</p>
+      
+      <form class="funnel-form" onsubmit="submitForm(event)">
         <div class="form-row">
           <div class="form-group">
             <label for="first_name">First Name</label>
@@ -193,8 +227,11 @@ function renderContactForm() {
           <label for="zip">Zip Code</label>
           <input type="text" id="zip" name="zip" placeholder="12345" required pattern="[0-9]{5}" maxlength="5">
         </div>
-        <button type="submit" class="quiz-submit" id="submit-btn">
+        <button type="submit" class="funnel-submit" id="submit-btn">
           Get My Testing Opportunities
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
         </button>
         <p class="form-disclaimer">
           By submitting, you agree to receive emails about game testing opportunities. 
@@ -212,7 +249,7 @@ async function submitForm(event) {
   event.preventDefault();
   
   const submitBtn = document.getElementById('submit-btn');
-  const originalText = submitBtn.innerHTML;
+  const originalHTML = submitBtn.innerHTML;
   
   // Get form data
   const firstName = document.getElementById('first_name').value.trim();
@@ -289,7 +326,7 @@ function generateFallbackUUID() {
 }
 
 /**
- * Toggle FAQ accordion
+ * Toggle FAQ accordion (for landing page)
  */
 function toggleFaq(button) {
   const faqItem = button.parentElement;
@@ -306,16 +343,5 @@ function toggleFaq(button) {
   }
 }
 
-// Close modal on escape key
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    closeQuiz();
-  }
-});
-
-// Close modal on backdrop click
-document.addEventListener('click', function(e) {
-  if (e.target.classList.contains('quiz-modal')) {
-    closeQuiz();
-  }
-});
+// Initialize funnel when DOM is ready
+document.addEventListener('DOMContentLoaded', initFunnel);

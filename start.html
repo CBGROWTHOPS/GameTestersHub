@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quick Quiz - GameTestersHub</title>
+  <meta name="description" content="Answer a few questions to see if you qualify for game testing opportunities.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="funnel-page">
+  <div class="funnel-container">
+    <!-- Header -->
+    <header class="funnel-header">
+      <a href="/" class="funnel-logo">GameTestersHub</a>
+    </header>
+
+    <!-- Progress -->
+    <div class="funnel-progress-wrapper">
+      <div class="funnel-progress">
+        <div class="funnel-progress-bar" id="progress-bar"></div>
+      </div>
+      <div class="funnel-step-indicator">
+        Step <span id="current-step">1</span> of <span id="total-steps">6</span>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="funnel-content" id="funnel-content">
+      <!-- Steps rendered by quiz.js -->
+    </main>
+
+    <!-- Back Button -->
+    <div class="funnel-nav" id="funnel-nav" style="display: none;">
+      <button class="funnel-back" onclick="goBack()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back
+      </button>
+    </div>
+
+    <!-- Trust Badge -->
+    <div class="funnel-trust">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      </svg>
+      <span>Your information is secure and never shared</span>
+    </div>
+  </div>
+
+  <script src="tracking.js"></script>
+  <script src="quiz.js"></script>
+</body>
+</html>

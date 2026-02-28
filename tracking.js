@@ -1,0 +1,136 @@
+/**
+ * GameTestersHub - Facebook Tracking
+ * Handles FB Pixel, fbclid capture, and fbc cookie generation
+ */
+
+// Configuration - UPDATE THESE VALUES
+const FB_PIXEL_ID = 'YOUR_PIXEL_ID'; // Replace with your Facebook Pixel ID
+
+// Initialize tracking data
+const trackingData = {
+  fbclid: null,
+  fbc: null,
+  fbp: null
+};
+
+/**
+ * Initialize Facebook Pixel
+ */
+function initFacebookPixel() {
+  if (FB_PIXEL_ID === 'YOUR_PIXEL_ID') {
+    console.warn('GameTestersHub: Facebook Pixel ID not configured');
+    return;
+  }
+
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+
+  fbq('init', FB_PIXEL_ID);
+  fbq('track', 'PageView');
+}
+
+/**
+ * Capture fbclid from URL parameters
+ */
+function captureFbclid() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const fbclid = urlParams.get('fbclid');
+  
+  if (fbclid) {
+    trackingData.fbclid = fbclid;
+    
+    // Store in sessionStorage for persistence across page refreshes
+    sessionStorage.setItem('gth_fbclid', fbclid);
+    
+    // Generate fbc cookie value
+    // Format: fb.1.{timestamp}.{fbclid}
+    const timestamp = Date.now();
+    trackingData.fbc = `fb.1.${timestamp}.${fbclid}`;
+    sessionStorage.setItem('gth_fbc', trackingData.fbc);
+    
+    // Set fbc cookie for Facebook
+    setCookie('_fbc', trackingData.fbc, 90);
+  } else {
+    // Try to retrieve from sessionStorage
+    trackingData.fbclid = sessionStorage.getItem('gth_fbclid');
+    trackingData.fbc = sessionStorage.getItem('gth_fbc') || getCookie('_fbc');
+  }
+}
+
+/**
+ * Capture fbp (Facebook browser ID) from cookie
+ */
+function captureFbp() {
+  trackingData.fbp = getCookie('_fbp');
+}
+
+/**
+ * Set a cookie
+ */
+function setCookie(name, value, days) {
+  const expires = new Date();
+  expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+  document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/;SameSite=Lax`;
+}
+
+/**
+ * Get a cookie value
+ */
+function getCookie(name) {
+  const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+  return match ? match[2] : null;
+}
+
+/**
+ * Generate a UUID v4
+ */
+function generateUUID() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const r = Math.random() * 16 | 0;
+    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+
+/**
+ * Get tracking data for form submission
+ */
+function getTrackingData() {
+  return {
+    fbclid: trackingData.fbclid,
+    fbc: trackingData.fbc,
+    fbp: trackingData.fbp,
+    uuid: generateUUID(),
+    user_agent: navigator.userAgent,
+    page_url: window.location.href
+  };
+}
+
+/**
+ * Track custom event with Facebook Pixel
+ */
+function trackEvent(eventName, params = {}) {
+  if (typeof fbq !== 'undefined') {
+    fbq('track', eventName, params);
+  }
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+  captureFbclid();
+  captureFbp();
+  initFacebookPixel();
+});
+
+// Export for use in other scripts
+window.GameTestersTracking = {
+  getTrackingData,
+  trackEvent,
+  generateUUID
+};

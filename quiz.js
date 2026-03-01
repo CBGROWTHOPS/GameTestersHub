@@ -275,7 +275,8 @@ async function submitForm(event) {
     fbc: trackingInfo.fbc || null,
     fbclid: trackingInfo.fbclid || null,
     fbp: trackingInfo.fbp || null,
-    source: 'gametestershub'
+    source: 'gametestershub',
+    event_id: trackingInfo.event_id || window.GameTestersTracking?.getLeadEventId() || `lead_${Date.now()}_${Math.random().toString(36).substr(2,9)}`
   };
   
   // Show loading state

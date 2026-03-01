@@ -99,6 +99,27 @@ function generateUUID() {
 }
 
 /**
+ * Gets or creates a unique event_id for the current lead submission.
+ * Used for CAPI event deduplication - same event_id prevents duplicate Lead events.
+ * Stored in sessionStorage so it persists across page refreshes but not sessions.
+ */
+function getLeadEventId() {
+  let id = sessionStorage.getItem('gth_lead_event_id');
+  if (!id) {
+    id = 'lead_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    sessionStorage.setItem('gth_lead_event_id', id);
+  }
+  return id;
+}
+
+/**
+ * Clears the event_id after successful submission (for next lead)
+ */
+function clearLeadEventId() {
+  sessionStorage.removeItem('gth_lead_event_id');
+}
+
+/**
  * Get tracking data for form submission
  */
 function getTrackingData() {
@@ -107,6 +128,7 @@ function getTrackingData() {
     fbc: trackingData.fbc,
     fbp: trackingData.fbp,
     uuid: generateUUID(),
+    event_id: getLeadEventId(),
     user_agent: navigator.userAgent,
     page_url: window.location.href
   };
@@ -132,5 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
 window.GameTestersTracking = {
   getTrackingData,
   trackEvent,
-  generateUUID
+  generateUUID,
+  getLeadEventId,
+  clearLeadEventId
 };

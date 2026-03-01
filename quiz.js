@@ -4,9 +4,9 @@
  * Page-based funnel (not modal)
  */
 
-// Configuration - UPDATE REDIRECT_URL with your BeMob campaign link
+// Configuration
 const SUPABASE_FUNCTION_URL = 'https://rovbqnncmzltdyeeldxz.supabase.co/functions/v1/submit-lead';
-const REDIRECT_URL = 'https://YOUR_BEMOB_CAMPAIGN_URL'; // BeMob campaign link - UPDATE THIS
+const BEMOB_CAMPAIGN_URL = 'https://s5ljw.bemobtrcks.com/go/70033a3a-1ac6-425e-9525-725a7d39d6ad';
 
 // Quiz state
 let currentStep = 1;
@@ -303,15 +303,16 @@ async function submitForm(event) {
       });
     }
     
-    // Redirect to offer
-    const redirectUrl = result.redirect_url || REDIRECT_URL;
+    // Build redirect URL with tracking params
+    const redirectUrl = buildRedirectUrl(trackingInfo);
     window.location.href = redirectUrl;
     
   } catch (error) {
     console.error('Submission error:', error);
     
     // Still redirect on error (don't lose the lead)
-    window.location.href = REDIRECT_URL;
+    const trackingInfo = window.GameTestersTracking ? window.GameTestersTracking.getTrackingData() : {};
+    window.location.href = buildRedirectUrl(trackingInfo);
   }
 }
 
@@ -324,6 +325,21 @@ function generateFallbackUUID() {
     const v = c === 'x' ? r : (r & 0x3 | 0x8);
     return v.toString(16);
   });
+}
+
+/**
+ * Build redirect URL with tracking parameters for BeMob
+ * Maps: sub1=fbclid, sub2=fbp, sub3=fbc, s1=uuid
+ */
+function buildRedirectUrl(trackingInfo) {
+  const url = new URL(BEMOB_CAMPAIGN_URL);
+  
+  if (trackingInfo.fbclid) url.searchParams.set('sub1', trackingInfo.fbclid);
+  if (trackingInfo.fbp) url.searchParams.set('sub2', trackingInfo.fbp);
+  if (trackingInfo.fbc) url.searchParams.set('sub3', trackingInfo.fbc);
+  if (trackingInfo.uuid) url.searchParams.set('s1', trackingInfo.uuid);
+  
+  return url.toString();
 }
 
 /**

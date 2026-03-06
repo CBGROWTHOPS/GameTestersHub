@@ -303,16 +303,16 @@ async function submitForm(event) {
       });
     }
     
-    // Build redirect URL with tracking params
-    const redirectUrl = buildRedirectUrl(trackingInfo);
-    window.location.href = redirectUrl;
+    // Redirect to continue page with tracking params
+    const continueUrl = buildContinueUrl(trackingInfo);
+    window.location.href = continueUrl;
     
   } catch (error) {
     console.error('Submission error:', error);
     
     // Still redirect on error (don't lose the lead)
     const trackingInfo = window.GameTestersTracking ? window.GameTestersTracking.getTrackingData() : {};
-    window.location.href = buildRedirectUrl(trackingInfo);
+    window.location.href = buildContinueUrl(trackingInfo);
   }
 }
 
@@ -328,18 +328,20 @@ function generateFallbackUUID() {
 }
 
 /**
- * Build redirect URL with tracking parameters for BeMob
- * Maps: sub1=fbclid, sub2=fbp, sub3=fbc, s1=uuid
+ * Build continue page URL with tracking parameters
+ * Continue page handles the scanning animation before showing BeMob offer
  */
-function buildRedirectUrl(trackingInfo) {
-  const url = new URL(BEMOB_CAMPAIGN_URL);
+function buildContinueUrl(trackingInfo) {
+  const params = new URLSearchParams();
   
-  if (trackingInfo.fbclid) url.searchParams.set('sub1', trackingInfo.fbclid);
-  if (trackingInfo.fbp) url.searchParams.set('sub2', trackingInfo.fbp);
-  if (trackingInfo.fbc) url.searchParams.set('sub3', trackingInfo.fbc);
-  if (trackingInfo.uuid) url.searchParams.set('s1', trackingInfo.uuid);
+  if (trackingInfo.fbclid) params.set('fbclid', trackingInfo.fbclid);
+  if (trackingInfo.fbc) params.set('fbc', trackingInfo.fbc);
+  if (trackingInfo.fbp) params.set('fbp', trackingInfo.fbp);
+  if (trackingInfo.uuid) params.set('uuid', trackingInfo.uuid);
+  if (trackingInfo.event_id) params.set('event_id', trackingInfo.event_id);
   
-  return url.toString();
+  const queryString = params.toString();
+  return queryString ? `/continue?${queryString}` : '/continue';
 }
 
 /**

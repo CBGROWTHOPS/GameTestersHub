@@ -136,10 +136,14 @@ function getTrackingData() {
 
 /**
  * Track custom event with Facebook Pixel
+ * @param {string} eventName - e.g. 'Lead', 'PageView'
+ * @param {object} params - event parameters
+ * @param {string} [eventID] - optional, for deduplication (e.g. same event from quiz + continue)
  */
-function trackEvent(eventName, params = {}) {
+function trackEvent(eventName, params = {}, eventID = null) {
   if (typeof fbq !== 'undefined') {
-    fbq('track', eventName, params);
+    const options = eventID ? { eventID: eventID } : undefined;
+    fbq('track', eventName, params, options);
   }
 }
 

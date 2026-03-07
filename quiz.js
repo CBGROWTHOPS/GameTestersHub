@@ -295,12 +295,13 @@ async function submitForm(event) {
     
     const result = await response.json();
     
-    // Track Lead event
+    // Track Lead event (continue page fires backup with same event_id for deduplication)
     if (window.GameTestersTracking) {
+      const leadEventId = trackingInfo.event_id || window.GameTestersTracking.getLeadEventId();
       window.GameTestersTracking.trackEvent('Lead', {
         content_name: 'GameTestersHub Quiz',
         status: 'submitted'
-      });
+      }, leadEventId);
     }
     
     // Redirect to continue page with tracking params

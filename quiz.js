@@ -264,6 +264,13 @@ async function submitForm(event) {
     trackingInfo = window.GameTestersTracking.getTrackingData();
   }
   
+  // event_id = uuid for pixel + CAPI deduplication
+  const eventId = trackingInfo.uuid || generateFallbackUUID();
+
+  if (typeof window !== 'undefined' && window.fbq) {
+    window.fbq('track', 'Lead', { eventID: eventId });
+  }
+
   // Build payload matching Supabase edge function schema
   const payload = {
     email,
@@ -276,7 +283,7 @@ async function submitForm(event) {
     fbclid: trackingInfo.fbclid || null,
     fbp: trackingInfo.fbp || null,
     source: 'gametestershub',
-    event_id: trackingInfo.event_id || window.GameTestersTracking?.getLeadEventId() || `lead_${Date.now()}_${Math.random().toString(36).substr(2,9)}`
+    event_id: eventId
   };
   
   // Show loading state
@@ -295,14 +302,7 @@ async function submitForm(event) {
     
     const result = await response.json();
     
-    // Track Lead event (continue page fires backup with same event_id for deduplication)
-    if (window.GameTestersTracking) {
-      const leadEventId = trackingInfo.event_id || window.GameTestersTracking.getLeadEventId();
-      window.GameTestersTracking.trackEvent('Lead', {
-        content_name: 'GameTestersHub Quiz',
-        status: 'submitted'
-      }, leadEventId);
-    }
+    // Pixel Lead already fired above with eventID before fetch; CAPI gets same event_id via payload
     
     // Redirect to continue page with tracking params
     const continueUrl = buildContinueUrl(trackingInfo);

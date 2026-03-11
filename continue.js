@@ -145,6 +145,7 @@ function handleContinue() {
   if (fbc) url.searchParams.set('sub3', fbc);
   url.searchParams.set('sub4', eventId);
   if (uuid) url.searchParams.set('s1', uuid);
+  url.searchParams.set('sub6', 'gth');
 
   window.location.href = url.toString();
 }

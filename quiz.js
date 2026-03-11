@@ -5,8 +5,8 @@
  */
 
 // Configuration
-const SUPABASE_FUNCTION_URL = 'https://rovbqnncmzltdyeeldxz.supabase.co/functions/v1/submit-lead';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJvdmJxbm5jbXpsdGR5ZWVsZHh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE3Mjc1OTYsImV4cCI6MjA4NzMwMzU5Nn0.bZL4NnaSACULm8GGQV9mnC7gwFTtN_0Qewz-DUJDlbQ';
+// Same-origin API = no CORS, auth handled server-side
+const SUBMIT_URL = '/api/submit-lead';
 const BEMOB_CAMPAIGN_URL = 'https://s5ljw.bemobtrcks.com/go/70033a3a-1ac6-425e-9525-725a7d39d6ad';
 
 // Quiz state
@@ -293,13 +293,9 @@ async function submitForm(event) {
   
   try {
     // Submit to Supabase
-    const response = await fetch(SUPABASE_FUNCTION_URL, {
+    const response = await fetch(SUBMIT_URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-        'apikey': SUPABASE_ANON_KEY
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
     

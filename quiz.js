@@ -6,6 +6,7 @@
 
 // Configuration
 const SUPABASE_FUNCTION_URL = 'https://rovbqnncmzltdyeeldxz.supabase.co/functions/v1/submit-lead';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJvdmJxbm5jbXpsdGR5ZWVsZHh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE3Mjc1OTYsImV4cCI6MjA4NzMwMzU5Nn0.bZL4NnaSACULm8GGQV9mnC7gwFTtN_0Qewz-DUJDlbQ';
 const BEMOB_CAMPAIGN_URL = 'https://s5ljw.bemobtrcks.com/go/70033a3a-1ac6-425e-9525-725a7d39d6ad';
 
 // Quiz state
@@ -295,7 +296,8 @@ async function submitForm(event) {
     const response = await fetch(SUPABASE_FUNCTION_URL, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
       },
       body: JSON.stringify(payload)
     });

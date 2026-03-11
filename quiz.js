@@ -4,9 +4,10 @@
  * Page-based funnel (not modal)
  */
 
-// Configuration
-// Same-origin API = no CORS, auth handled server-side
-const SUBMIT_URL = '/api/submit-lead';
+// Configuration - same Supabase as BDN, same submit-lead
+const SUPABASE_URL = 'https://rovbqnncmzltdyeeldxz.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJvdmJxbm5jbXpsdGR5ZWVsZHh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE3Mjc1OTYsImV4cCI6MjA4NzMwMzU5Nn0.bZL4NnaSACULm8GGQV9mnC7gwFTtN_0Qewz-DUJDlbQ';
+const supabase = window.supabase?.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const BEMOB_CAMPAIGN_URL = 'https://s5ljw.bemobtrcks.com/go/70033a3a-1ac6-425e-9525-725a7d39d6ad';
 
 // Quiz state
@@ -292,21 +293,13 @@ async function submitForm(event) {
   submitBtn.innerHTML = '<span class="loading"></span>Submitting...';
   
   try {
-    // Submit to Supabase
-    const response = await fetch(SUBMIT_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-    
-    const result = await response.json();
-    
-    // Pixel Lead already fired above with eventID before fetch; CAPI gets same event_id via payload
-    
-    // Redirect to continue page with tracking params
+    // Same path as BDN: supabase.functions.invoke handles auth + CORS
+    const { error } = await supabase.functions.invoke('submit-lead', { body: payload });
+    if (error) console.error('submit-lead error:', error);
+
     const continueUrl = buildContinueUrl(trackingInfo);
     window.location.href = continueUrl;
-    
+
   } catch (error) {
     console.error('Submission error:', error);
     

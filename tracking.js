@@ -170,5 +170,6 @@ window.GameTestersTracking = {
   trackEvent,
   generateUUID,
   getLeadEventId,
-  clearLeadEventId
+  clearLeadEventId,
+  getOrCreateSessionUuid
 };

@@ -243,43 +243,61 @@ function renderContactForm() {
 }
 
 /**
+ * Ensure tracking is ready (event_id exists). No fallback UUID - prevents dedup mismatch.
+ * @returns {{ trackingInfo: object, eventId: string } | null} - null if not ready
+ */
+function ensureTrackingReady() {
+  if (!window.GameTestersTracking) return null;
+  var trackingInfo = window.GameTestersTracking.getTrackingData();
+  if (!trackingInfo || !trackingInfo.event_id) return null;
+  return { trackingInfo: trackingInfo, eventId: trackingInfo.event_id };
+}
+
+/**
  * Submit form
  */
 async function submitForm(event) {
   event.preventDefault();
-  
-  const submitBtn = document.getElementById('submit-btn');
-  const originalHTML = submitBtn.innerHTML;
-  
-  // Get form data
-  const firstName = document.getElementById('first_name').value.trim();
-  const lastName = document.getElementById('last_name').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-  const zip = document.getElementById('zip').value.trim();
-  
-  // Get tracking data
-  let trackingInfo = {};
-  if (window.GameTestersTracking) {
-    trackingInfo = window.GameTestersTracking.getTrackingData();
+
+  var submitBtn = document.getElementById('submit-btn');
+  var originalHTML = submitBtn.innerHTML;
+
+  // Wait for tracking.event_id — no fallback UUID (root cause of dedup mismatch)
+  var ready = ensureTrackingReady();
+  if (!ready) {
+    console.error('[GTH Lead] Tracking not ready - event_id missing. Blocking submit.');
+    submitBtn.innerHTML = 'Loading... please try again';
+    submitBtn.disabled = false;
+    setTimeout(function() {
+      submitBtn.innerHTML = originalHTML;
+    }, 2000);
+    return;
   }
 
-  // Unique event_id per submit for pixel + CAPI deduplication (must match in both)
-  const eventId = trackingInfo.event_id || 'lead_' + generateFallbackUUID();
+  var trackingInfo = ready.trackingInfo;
+  var eventId = ready.eventId;
+
+  // uuid always from getOrCreateSessionUuid (never undefined)
+  var uuid = trackingInfo.uuid;
+  if (!uuid && window.GameTestersTracking.getOrCreateSessionUuid) {
+    uuid = window.GameTestersTracking.getOrCreateSessionUuid();
+  }
 
   // eventID in 4th arg; value/currency for valid price (Facebook requires for Lead)
   if (typeof window !== 'undefined' && window.fbq) {
     window.fbq('track', 'Lead', { value: 1, currency: 'USD' }, { eventID: eventId });
   }
 
-  // Build payload matching Supabase edge function schema
-  const payload = {
-    email,
-    firstName,
-    lastName,
-    phone,
-    zip,
-    uuid: trackingInfo.uuid || generateFallbackUUID(),
+  console.log('[GTH Lead] PIXEL event_id:', JSON.stringify(eventId), 'length:', eventId.length, 'bytes:', new TextEncoder().encode(eventId).length);
+  console.log('[GTH Lead] uuid for external_id:', uuid ? 'present' : 'MISSING', uuid);
+
+  var payload = {
+    email: document.getElementById('email').value.trim(),
+    firstName: document.getElementById('first_name').value.trim(),
+    lastName: document.getElementById('last_name').value.trim(),
+    phone: document.getElementById('phone').value.trim(),
+    zip: document.getElementById('zip').value.trim(),
+    uuid: uuid,
     fbc: trackingInfo.fbc || null,
     fbclid: trackingInfo.fbclid || null,
     fbp: trackingInfo.fbp || null,
@@ -288,13 +306,14 @@ async function submitForm(event) {
     event_source_url: typeof window !== 'undefined' ? window.location.href : undefined,
     user_agent: typeof navigator !== 'undefined' ? navigator.userAgent : undefined
   };
-  
-  // Show loading state
+
+  console.log('[GTH Lead] CAPI payload event_id:', JSON.stringify(payload.event_id), 'uuid:', JSON.stringify(payload.uuid));
+
   submitBtn.disabled = true;
   submitBtn.innerHTML = '<span class="loading"></span>Submitting...';
-  
+
   try {
-    const res = await fetch(SUBMIT_URL, {
+    var res = await fetch(SUBMIT_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
@@ -305,25 +324,13 @@ async function submitForm(event) {
       window.GameTestersTracking.clearLeadEventId();
     }
     window.location.href = buildContinueUrl(trackingInfo);
-
-  } catch (error) {
-    console.error('Submission error:', error);
-    
-    // Still redirect on error (don't lose the lead)
-    const trackingInfo = window.GameTestersTracking ? window.GameTestersTracking.getTrackingData() : {};
-    window.location.href = buildContinueUrl(trackingInfo);
+  } catch (err) {
+    console.error('Submission error:', err);
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = originalHTML;
+    var fallbackInfo = window.GameTestersTracking ? window.GameTestersTracking.getTrackingData() : {};
+    window.location.href = buildContinueUrl(fallbackInfo);
   }
-}
-
-/**
- * Fallback UUID generator
- */
-function generateFallbackUUID() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    const r = Math.random() * 16 | 0;
-    const v = c === 'x' ? r : (r & 0x3 | 0x8);
-    return v.toString(16);
-  });
 }
 
 /**

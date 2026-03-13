@@ -263,12 +263,13 @@ async function submitForm(event) {
   if (window.GameTestersTracking) {
     trackingInfo = window.GameTestersTracking.getTrackingData();
   }
-  
-  // event_id = uuid for pixel + CAPI deduplication
-  const eventId = trackingInfo.uuid || generateFallbackUUID();
 
+  // Unique event_id per submit for pixel + CAPI deduplication (must match in both)
+  const eventId = trackingInfo.event_id || 'lead_' + generateFallbackUUID();
+
+  // eventID in 4th arg; value/currency for valid price (Facebook requires for Lead)
   if (typeof window !== 'undefined' && window.fbq) {
-    window.fbq('track', 'Lead', { eventID: eventId });
+    window.fbq('track', 'Lead', { value: 1, currency: 'USD' }, { eventID: eventId });
   }
 
   // Build payload matching Supabase edge function schema
@@ -283,7 +284,9 @@ async function submitForm(event) {
     fbclid: trackingInfo.fbclid || null,
     fbp: trackingInfo.fbp || null,
     source: 'gametestershub',
-    event_id: eventId
+    event_id: eventId,
+    event_source_url: typeof window !== 'undefined' ? window.location.href : undefined,
+    user_agent: typeof navigator !== 'undefined' ? navigator.userAgent : undefined
   };
   
   // Show loading state
@@ -298,6 +301,9 @@ async function submitForm(event) {
     });
     if (!res.ok) console.error('submit-lead:', res.status, await res.text());
 
+    if (window.GameTestersTracking && window.GameTestersTracking.clearLeadEventId) {
+      window.GameTestersTracking.clearLeadEventId();
+    }
     window.location.href = buildContinueUrl(trackingInfo);
 
   } catch (error) {

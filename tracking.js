@@ -106,7 +106,7 @@ function generateUUID() {
 function getLeadEventId() {
   let id = sessionStorage.getItem('gth_lead_event_id');
   if (!id) {
-    id = 'lead_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    id = 'lead_' + generateUUID();
     sessionStorage.setItem('gth_lead_event_id', id);
   }
   return id;
@@ -119,6 +119,16 @@ function clearLeadEventId() {
   sessionStorage.removeItem('gth_lead_event_id');
 }
 
+// Stable uuid for this session (MailerLite, BeMob s1)
+let sessionUuid = null;
+function getOrCreateSessionUuid() {
+  if (!sessionUuid) {
+    sessionUuid = sessionStorage.getItem('gth_uuid') || generateUUID();
+    sessionStorage.setItem('gth_uuid', sessionUuid);
+  }
+  return sessionUuid;
+}
+
 /**
  * Get tracking data for form submission
  */
@@ -127,7 +137,7 @@ function getTrackingData() {
     fbclid: trackingData.fbclid,
     fbc: trackingData.fbc,
     fbp: trackingData.fbp,
-    uuid: generateUUID(),
+    uuid: getOrCreateSessionUuid(),
     event_id: getLeadEventId(),
     user_agent: navigator.userAgent,
     page_url: window.location.href

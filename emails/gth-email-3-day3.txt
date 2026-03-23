@@ -1,0 +1,11 @@
+Subject: Ready for your first test?
+
+Hey {{first_name}},
+
+You've been on the list for a few days now.
+
+If you haven't applied to a test yet, head to https://gametestershub.com — the next match could be the one.
+
+If you've already applied, thanks — we'll reach out when a spot opens for you.
+
+— GameTestersHub

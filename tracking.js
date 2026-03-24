@@ -44,18 +44,22 @@ function captureFbclid() {
   
   if (fbclid) {
     trackingData.fbclid = fbclid;
-    
+
     // Store in sessionStorage for persistence across page refreshes
     sessionStorage.setItem('gth_fbclid', fbclid);
-    
-    // Generate fbc cookie value
-    // Format: fb.1.{timestamp}.{fbclid}
-    const timestamp = Date.now();
-    trackingData.fbc = `fb.1.${timestamp}.${fbclid}`;
+
+    // Prefer the _fbc cookie set by Meta's pixel (has correct click timestamp).
+    // Only generate a new fbc if Meta pixel hasn't set one — overwriting with
+    // Date.now() causes Facebook to flag "Server sending modified fbclid value"
+    const existingFbc = getCookie('_fbc');
+    if (existingFbc) {
+      trackingData.fbc = existingFbc;
+    } else {
+      const timestamp = Date.now();
+      trackingData.fbc = `fb.1.${timestamp}.${fbclid}`;
+      setCookie('_fbc', trackingData.fbc, 90);
+    }
     sessionStorage.setItem('gth_fbc', trackingData.fbc);
-    
-    // Set fbc cookie for Facebook
-    setCookie('_fbc', trackingData.fbc, 90);
   } else {
     // Try to retrieve from sessionStorage
     trackingData.fbclid = sessionStorage.getItem('gth_fbclid');

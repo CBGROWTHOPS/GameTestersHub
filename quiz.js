@@ -288,6 +288,11 @@ async function submitForm(event) {
     window.fbq('track', 'Lead', { value: 1, currency: 'USD' }, { eventID: eventId });
   }
 
+  // ClickMagick: log Action (Lead) conversion
+  if (typeof clickmagick_cmc !== 'undefined' && clickmagick_cmc.log) {
+    clickmagick_cmc.log('a', 'lead');
+  }
+
   console.log('[GTH Lead] PIXEL event_id:', JSON.stringify(eventId), 'length:', eventId.length, 'bytes:', new TextEncoder().encode(eventId).length);
   console.log('[GTH Lead] uuid for external_id:', uuid ? 'present' : 'MISSING', uuid);
 

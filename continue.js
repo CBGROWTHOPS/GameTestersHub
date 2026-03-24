@@ -3,7 +3,23 @@
  * Phased scanning animation before showing offer CTA
  */
 
-const BEMOB_CAMPAIGN_URL = 'https://s5ljw.bemobtrcks.com/go/70033a3a-1ac6-425e-9525-725a7d39d6ad';
+// MaxBounty offer URLs — weighted rotation (same as old BeMob config)
+// s2=[cmc_vid] is replaced with ClickMagick visitor ID for postback matching
+const OFFERS = [
+  { name: 'FreeCash',     weight: 100, url: 'https://afflat3d3.com/trk/lnk/F56C4067-DBA6-4D00-A4AA-3CE0671DE6A7/?o=26175&c=918277&a=378440&k=42722FE8636ECC63D56F4AC2489A4B65&l=27558' },
+  { name: 'InboxDollars', weight: 50,  url: 'https://afflat3d2.com/trk/lnk/F56C4067-DBA6-4D00-A4AA-3CE0671DE6A7/?o=6365&c=918277&a=378440&k=F212D3280BB654FA50B5505AAEAF142C&l=5077' },
+  { name: 'Klink',        weight: 25,  url: 'https://afflat3d2.com/trk/lnk/F56C4067-DBA6-4D00-A4AA-3CE0671DE6A7/?o=30346&c=918277&a=378440&k=07CA2CB6BDF109A1DC67DD3343F777DC&l=35609' },
+];
+
+function pickOffer() {
+  const total = OFFERS.reduce((sum, o) => sum + o.weight, 0);
+  let r = Math.random() * total;
+  for (const offer of OFFERS) {
+    r -= offer.weight;
+    if (r <= 0) return offer;
+  }
+  return OFFERS[0];
+}
 
 const CYCLING_TEXTS = [
   'Scanning game database',
@@ -128,25 +144,19 @@ function updateAnimation() {
 }
 
 function handleContinue() {
-  const params = getUrlParams();
-  const trackingFromStorage = window.GameTestersTracking 
-    ? window.GameTestersTracking.getTrackingData() 
-    : {};
+  const offer = pickOffer();
 
-  const fbclid = params.fbclid || trackingFromStorage.fbclid;
-  const fbc = params.fbc || trackingFromStorage.fbc;
-  const fbp = params.fbp || trackingFromStorage.fbp;
-  const uuid = params.uuid || trackingFromStorage.uuid;
-  const eventId = params.event_id || trackingFromStorage.event_id || `lead_${Date.now()}`;
+  // Get ClickMagick visitor ID (replaced by tracking code in the hidden span)
+  const cmcVidEl = document.getElementById('cmc-vid');
+  const cmcVid = cmcVidEl ? cmcVidEl.textContent.trim() : '';
 
-  const url = new URL(BEMOB_CAMPAIGN_URL);
-  if (fbclid) url.searchParams.set('sub1', fbclid);
-  if (fbp) url.searchParams.set('sub2', fbp);
-  if (fbc) url.searchParams.set('sub3', fbc);
-  url.searchParams.set('sub4', eventId);
-  if (uuid) url.searchParams.set('s1', uuid);
-  url.searchParams.set('sub6', 'gth');
+  // Build MaxBounty URL with ClickMagick visitor ID in s2 for postback matching
+  const url = new URL(offer.url);
+  if (cmcVid && cmcVid !== '[cmc_vid]') {
+    url.searchParams.set('s2', cmcVid);
+  }
 
+  console.log(`[GTH] Redirecting to ${offer.name} with cmc_vid: ${cmcVid}`);
   window.location.href = url.toString();
 }
 

@@ -411,6 +411,45 @@ h1, h2, h3, h4 {
   font-weight: 500;
 }
 
+/* Product comparison cards */
+.product-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 24px;
+  margin: 16px 0 32px;
+}
+
+.product-card .product-verdict {
+  display: inline-block;
+  padding: 4px 14px;
+  background: rgba(139, 92, 246, 0.15);
+  border-radius: 100px;
+  color: var(--accent-purple);
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.product-card .info-table {
+  margin: 12px 0 16px;
+}
+
+.product-card .pros-cons {
+  margin: 16px 0;
+}
+
+.product-card > p {
+  color: var(--text-secondary);
+  font-size: 15px;
+  line-height: 1.6;
+  margin-top: 12px;
+}
+
+.product-card > p:last-child {
+  margin-bottom: 0;
+}
+
 /* Homepage sections */
 .home-section {
   padding: 80px 24px;

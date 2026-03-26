@@ -27,7 +27,7 @@ const {
   cons,
   info,
   ctaLink,
-  ctaText = "Try It Free",
+  ctaText = "Visit Platform",
 } = Astro.props;
 ---
 
@@ -54,13 +54,6 @@ const {
           <div class="stars">{"★".repeat(Math.round(parseFloat(score) / 2))}{"☆".repeat(5 - Math.round(parseFloat(score) / 2))}</div>
         </div>
       </div>
-
-      {ctaLink && (
-        <a href={ctaLink} class="review-cta-button" target="_blank" rel="noopener">
-          {ctaText}
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-      )}
 
       <table class="info-table">
         {info.map((row) => (
@@ -92,9 +85,8 @@ const {
 
       {ctaLink && (
         <div class="bottom-cta">
-          <a href={ctaLink} class="review-cta-button" target="_blank" rel="noopener">
-            {ctaText}
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <a href={ctaLink} class="review-link" target="_blank" rel="noopener">
+            {ctaText} →
           </a>
         </div>
       )}
@@ -115,32 +107,20 @@ const {
     margin-bottom: 12px;
   }
 
-  .review-cta-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 16px 32px;
-    background: var(--gradient-primary);
-    color: white;
-    border-radius: 12px;
-    font-size: 17px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow-glow);
-    margin: 16px 0 32px;
-  }
-
-  .review-cta-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 60px rgba(139, 92, 246, 0.5);
-    color: white;
-  }
-
   .bottom-cta {
     margin-top: 40px;
-    padding-top: 32px;
+    padding-top: 24px;
     border-top: 1px solid var(--border-color);
-    text-align: center;
+  }
+
+  .review-link {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--accent-cyan);
+    text-decoration: none;
+  }
+
+  .review-link:hover {
+    color: var(--accent-purple);
   }
 </style>

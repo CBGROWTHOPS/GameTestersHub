@@ -1,0 +1,68 @@
+---
+interface Props {
+  showQuizCta?: boolean;
+  showFreecashCta?: boolean;
+}
+
+const { showQuizCta = true, showFreecashCta = true } = Astro.props;
+---
+
+<aside class="page-sidebar">
+  {showFreecashCta && (
+    <div class="cta-box">
+      <span class="cta-badge">Editor's Pick</span>
+      <h3>FreeCash</h3>
+      <p>Earn cash playing games, completing offers & surveys. Over $50M paid to users.</p>
+      <div class="stars" style="margin-bottom: 12px;">★★★★★</div>
+      <a href="https://trk.ssaff.link/gth-freecash" class="cta-button" target="_blank" rel="noopener">
+        Start Earning Free
+      </a>
+    </div>
+  )}
+
+  {showQuizCta && (
+    <div class="cta-box">
+      <h3>Find Your Best Fit</h3>
+      <p>Take our 60-second quiz to get matched with earning opportunities for gamers.</p>
+      <a href="/start" class="cta-button">
+        Take the Quiz
+      </a>
+    </div>
+  )}
+
+  <div class="cta-box">
+    <h3>Top Platforms</h3>
+    <div class="sidebar-links">
+      <a href="/reviews/freecash">FreeCash</a>
+      <a href="/reviews/inboxdollars">InboxDollars</a>
+      <a href="/reviews/playtestcloud">PlaytestCloud</a>
+      <a href="/reviews/swagbucks">Swagbucks</a>
+    </div>
+  </div>
+</aside>
+
+<style>
+  .sidebar-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: left;
+  }
+
+  .sidebar-links a {
+    display: block;
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  .sidebar-links a:hover {
+    border-color: var(--accent-purple);
+    background: rgba(139, 92, 246, 0.1);
+  }
+</style>

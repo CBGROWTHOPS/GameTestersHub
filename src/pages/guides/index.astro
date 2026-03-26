@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Sidebar from '../../components/Sidebar.astro';
+
+const guides = [
+  {
+    title: "The Truth About Game Testing Jobs",
+    slug: "truth-about-game-testing",
+    category: "Getting Started",
+    description: "What's real, what's hype, and how to actually get paid testing games in 2026.",
+    readTime: "10 min read"
+  },
+  {
+    title: "How to Maximize Your FreeCash Earnings",
+    slug: "maximize-freecash-earnings",
+    category: "Earning Tips",
+    description: "Pro tips and strategies to earn more per hour on FreeCash — from picking the right offers to stacking bonuses.",
+    readTime: "7 min read"
+  },
+  {
+    title: "Best Gaming Setup Under $500",
+    slug: "best-gaming-setup-under-500",
+    category: "Gear Guide",
+    description: "Everything you need to start gaming and earning without breaking the bank.",
+    readTime: "8 min read"
+  },
+];
+---
+
+<BaseLayout title="Guides & Resources" description="Guides, tips, and resources for earning money through gaming. Honest advice from people who've actually done it.">
+  <div class="page-layout">
+    <div class="page-content">
+      <div class="section-header">
+        <h1>Guides & Resources</h1>
+        <p>Everything you need to know about earning money through gaming — no fluff, no hype, just practical advice.</p>
+      </div>
+
+      <div class="card-grid">
+        {guides.map((guide) => (
+          <a href={`/guides/${guide.slug}`} class="card">
+            <span class="card-tag">{guide.category}</span>
+            <h3>{guide.title}</h3>
+            <p>{guide.description}</p>
+            <div class="card-meta">
+              <span>{guide.readTime}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+    <Sidebar />
+  </div>
+</BaseLayout>

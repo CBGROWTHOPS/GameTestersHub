@@ -1,0 +1,181 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Sidebar from '../../components/Sidebar.astro';
+
+const platforms = [
+  {
+    name: "FreeCash",
+    slug: "freecash",
+    category: "Rewards Platform",
+    score: "9.5",
+    stars: "★★★★★",
+    description: "Our top pick. Earn cash playing games, completing offers, and taking surveys. $1 minimum cashout, $50M+ paid out.",
+    badge: "Editor's Pick"
+  },
+  {
+    name: "PlaytestCloud",
+    slug: "playtestcloud",
+    category: "Game Testing",
+    score: "8.5",
+    stars: "★★★★☆",
+    description: "Real game testing — play unreleased games and give feedback. $9-12 per 15-30 minute test.",
+  },
+  {
+    name: "InboxDollars",
+    slug: "inboxdollars",
+    category: "Rewards Platform",
+    score: "8.0",
+    stars: "★★★★☆",
+    description: "Get a $5 signup bonus. Earn through games, surveys, and videos. Established since 2006.",
+  },
+  {
+    name: "Swagbucks",
+    slug: "swagbucks",
+    category: "Rewards Platform",
+    score: "7.5",
+    stars: "★★★★☆",
+    description: "Massive platform with tons of options. Great shopping cashback. Points-based system (100 SB = $1).",
+  },
+];
+---
+
+<BaseLayout title="Platform Reviews" description="Honest reviews of the best platforms for earning money through gaming. Ratings, pros, cons, and real earning potential.">
+  <div class="page-layout">
+    <div class="page-content">
+      <div class="section-header">
+        <h1>Platform Reviews</h1>
+        <p>Honest, detailed reviews of every earning platform worth your time. We test them all so you don't waste yours.</p>
+      </div>
+
+      <div class="review-list">
+        {platforms.map((platform, i) => (
+          <a href={`/reviews/${platform.slug}`} class="review-list-card">
+            <div class="review-list-rank">#{i + 1}</div>
+            <div class="review-list-info">
+              <div class="review-list-top">
+                <span class="card-tag">{platform.category}</span>
+                {platform.badge && <span class="review-badge">{platform.badge}</span>}
+              </div>
+              <h2>{platform.name}</h2>
+              <p>{platform.description}</p>
+            </div>
+            <div class="review-list-score">
+              <span class="score-big">{platform.score}</span>
+              <span class="stars">{platform.stars}</span>
+              <span class="read-link">Read Review →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+    <Sidebar />
+  </div>
+</BaseLayout>
+
+<style>
+  .review-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .review-list-card {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 28px;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+  }
+
+  .review-list-card:hover {
+    border-color: var(--accent-purple);
+    transform: translateY(-2px);
+    color: var(--text-primary);
+  }
+
+  .review-list-rank {
+    font-size: 32px;
+    font-weight: 800;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    flex-shrink: 0;
+    width: 48px;
+    text-align: center;
+  }
+
+  .review-list-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .review-list-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .review-badge {
+    padding: 3px 10px;
+    background: var(--gradient-primary);
+    border-radius: 100px;
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .review-list-info h2 {
+    font-size: 22px;
+    margin-bottom: 6px;
+  }
+
+  .review-list-info p {
+    color: var(--text-secondary);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .review-list-score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  .score-big {
+    font-size: 36px;
+    font-weight: 800;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+
+  .read-link {
+    font-size: 13px;
+    color: var(--accent-cyan);
+    margin-top: 4px;
+  }
+
+  @media (max-width: 600px) {
+    .review-list-card {
+      flex-direction: column;
+      text-align: center;
+    }
+    .review-list-top {
+      justify-content: center;
+    }
+    .review-list-rank {
+      width: auto;
+    }
+  }
+</style>

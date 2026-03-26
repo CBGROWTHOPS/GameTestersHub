@@ -1,9 +1,8 @@
 {
   "rewrites": [
-    { "source": "/start", "destination": "/start.html" },
-    { "source": "/continue", "destination": "/continue.html" },
-    { "source": "/offers", "destination": "/offers.html" },
-    { "source": "/", "destination": "/index.html" }
+    { "source": "/start", "destination": "/funnel/start.html" },
+    { "source": "/continue", "destination": "/funnel/continue.html" },
+    { "source": "/offers", "destination": "/funnel/offers.html" }
   ],
   "headers": [
     {

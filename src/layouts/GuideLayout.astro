@@ -1,0 +1,65 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Sidebar from '../components/Sidebar.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  category: string;
+  readTime: string;
+}
+
+const { title, description, category, readTime } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="page-layout">
+    <div class="page-content">
+      <nav class="breadcrumbs">
+        <a href="/">Home</a>
+        <span class="separator">/</span>
+        <a href="/guides">Guides</a>
+        <span class="separator">/</span>
+        <span>{title}</span>
+      </nav>
+
+      <div class="section-header">
+        <div class="guide-meta">
+          <span class="guide-category">{category}</span>
+          <span class="guide-read-time">{readTime}</span>
+        </div>
+        <h1>{title}</h1>
+        <p>{description}</p>
+      </div>
+
+      <div class="article-content">
+        <slot />
+      </div>
+    </div>
+    <Sidebar />
+  </div>
+</BaseLayout>
+
+<style>
+  .guide-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .guide-category {
+    display: inline-block;
+    padding: 4px 14px;
+    background: rgba(139, 92, 246, 0.15);
+    border-radius: 100px;
+    color: var(--accent-purple);
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .guide-read-time {
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+</style>

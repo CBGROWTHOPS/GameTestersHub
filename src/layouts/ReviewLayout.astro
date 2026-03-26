@@ -1,0 +1,146 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Sidebar from '../components/Sidebar.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  platform: string;
+  score: string;
+  scoreLabel: string;
+  category: string;
+  pros: string[];
+  cons: string[];
+  info: { label: string; value: string }[];
+  ctaLink?: string;
+  ctaText?: string;
+}
+
+const {
+  title,
+  description,
+  platform,
+  score,
+  scoreLabel,
+  category,
+  pros,
+  cons,
+  info,
+  ctaLink,
+  ctaText = "Try It Free",
+} = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="page-layout">
+    <div class="page-content">
+      <nav class="breadcrumbs">
+        <a href="/">Home</a>
+        <span class="separator">/</span>
+        <a href="/reviews">Reviews</a>
+        <span class="separator">/</span>
+        <span>{platform}</span>
+      </nav>
+
+      <div class="section-header">
+        <span class="review-category">{category}</span>
+        <h1>{title}</h1>
+      </div>
+
+      <div class="review-score">
+        <div class="score-number">{score}</div>
+        <div class="score-details">
+          <h3>{scoreLabel}</h3>
+          <div class="stars">{"★".repeat(Math.round(parseFloat(score) / 2))}{"☆".repeat(5 - Math.round(parseFloat(score) / 2))}</div>
+        </div>
+      </div>
+
+      {ctaLink && (
+        <a href={ctaLink} class="review-cta-button" target="_blank" rel="noopener">
+          {ctaText}
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      )}
+
+      <table class="info-table">
+        {info.map((row) => (
+          <tr>
+            <td>{row.label}</td>
+            <td>{row.value}</td>
+          </tr>
+        ))}
+      </table>
+
+      <div class="pros-cons">
+        <div class="pros">
+          <h4>Pros</h4>
+          <ul>
+            {pros.map((pro) => <li>{pro}</li>)}
+          </ul>
+        </div>
+        <div class="cons">
+          <h4>Cons</h4>
+          <ul>
+            {cons.map((con) => <li>{con}</li>)}
+          </ul>
+        </div>
+      </div>
+
+      <div class="article-content">
+        <slot />
+      </div>
+
+      {ctaLink && (
+        <div class="bottom-cta">
+          <a href={ctaLink} class="review-cta-button" target="_blank" rel="noopener">
+            {ctaText}
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      )}
+    </div>
+    <Sidebar />
+  </div>
+</BaseLayout>
+
+<style>
+  .review-category {
+    display: inline-block;
+    padding: 4px 14px;
+    background: rgba(139, 92, 246, 0.15);
+    border-radius: 100px;
+    color: var(--accent-purple);
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .review-cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 32px;
+    background: var(--gradient-primary);
+    color: white;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-glow);
+    margin: 16px 0 32px;
+  }
+
+  .review-cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 60px rgba(139, 92, 246, 0.5);
+    color: white;
+  }
+
+  .bottom-cta {
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+  }
+</style>

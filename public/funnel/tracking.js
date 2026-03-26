@@ -48,18 +48,16 @@ function captureFbclid() {
     // Store in sessionStorage for persistence across page refreshes
     sessionStorage.setItem('gth_fbclid', fbclid);
 
-    // Prefer the _fbc cookie set by Meta's pixel (has correct click timestamp).
-    // Only generate a new fbc if Meta pixel hasn't set one — overwriting with
-    // Date.now() causes Facebook to flag "Server sending modified fbclid value"
+    // Do NOT write _fbc — let Meta's pixel (fbevents.js) own it.
+    // This code runs before the async pixel loads, so writing _fbc here
+    // overwrites the pixel's value (correct click timestamp) and causes
+    // "Server sending modified fbclid value" errors. The bridge builds
+    // fbc server-side from fbclid if the pixel never set _fbc.
     const existingFbc = getCookie('_fbc');
     if (existingFbc) {
       trackingData.fbc = existingFbc;
-    } else {
-      const timestamp = Date.now();
-      trackingData.fbc = `fb.1.${timestamp}.${fbclid}`;
-      setCookie('_fbc', trackingData.fbc, 90);
+      sessionStorage.setItem('gth_fbc', existingFbc);
     }
-    sessionStorage.setItem('gth_fbc', trackingData.fbc);
   } else {
     // Try to retrieve from sessionStorage
     trackingData.fbclid = sessionStorage.getItem('gth_fbclid');

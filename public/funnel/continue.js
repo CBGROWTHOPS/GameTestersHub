@@ -146,16 +146,8 @@ function handleContinue() {
 }
 
 function init() {
-  // Fire Lead on page load (backup when quiz redirect cancels the first send)
-  const params = getUrlParams();
-  const trackingFromStorage = window.GameTestersTracking ? window.GameTestersTracking.getTrackingData() : {};
-  const eventId = params.event_id || trackingFromStorage.event_id;
-  if (eventId && window.GameTestersTracking) {
-    window.GameTestersTracking.trackEvent('Lead', {
-      content_name: 'GameTestersHub Continue',
-      status: 'landed'
-    }, eventId);
-  }
+  // Backup Lead pixel removed — ClickMagick Audience Optimization handles CAPI.
+  // quiz.js already fires fbq('track', 'Lead') on form submit.
 
   startTime = Date.now();
   updateAnimation();

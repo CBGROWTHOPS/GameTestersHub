@@ -6,7 +6,7 @@
 
 // Same-origin proxy = no CORS, no external deps
 const SUBMIT_URL = '/api/submit-lead';
-const BEMOB_CAMPAIGN_URL = 'https://s5ljw.bemobtrcks.com/go/70033a3a-1ac6-425e-9525-725a7d39d6ad';
+
 
 // Quiz state
 let currentStep = 1;
@@ -283,9 +283,9 @@ async function submitForm(event) {
     uuid = window.GameTestersTracking.getOrCreateSessionUuid();
   }
 
-  // eventID in 4th arg; value/currency for valid price (Facebook requires for Lead)
+  // No value/currency — ClickMagick Audience Optimization sends CAPI with its own value.
   if (typeof window !== 'undefined' && window.fbq) {
-    window.fbq('track', 'Lead', { value: 1, currency: 'USD' }, { eventID: eventId });
+    window.fbq('track', 'Lead', {}, { eventID: eventId });
   }
 
   // ClickMagick: log Action (Lead) conversion

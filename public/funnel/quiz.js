@@ -179,6 +179,16 @@ function selectOption(questionId, value, button) {
   options.forEach(opt => opt.classList.remove('selected'));
   button.classList.add('selected');
   
+  // GA4: track quiz step completion
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'funnel_step_complete', {
+      funnel_name: 'gth_quiz',
+      step_number: currentStep,
+      step_name: questionId,
+      step_value: value,
+    });
+  }
+
   // Advance after brief delay
   setTimeout(() => {
     currentStep++;
@@ -281,6 +291,24 @@ async function submitForm(event) {
   var uuid = trackingInfo.uuid;
   if (!uuid && window.GameTestersTracking.getOrCreateSessionUuid) {
     uuid = window.GameTestersTracking.getOrCreateSessionUuid();
+  }
+
+  // GA4: generate_lead + user properties
+  if (typeof gtag !== 'undefined') {
+    gtag('set', 'user_properties', {
+      user_game_preference: quizAnswers.game_preference || '',
+      user_platform: quizAnswers.platform || '',
+      user_availability: quizAnswers.availability || '',
+    });
+    gtag('event', 'generate_lead', {
+      funnel_name: 'gth_quiz',
+      game_preference: quizAnswers.game_preference,
+      platform: quizAnswers.platform,
+      availability: quizAnswers.availability,
+      experience: quizAnswers.experience,
+      motivation: quizAnswers.motivation,
+      event_id: eventId,
+    });
   }
 
   // No value/currency — ClickMagick Audience Optimization sends CAPI with its own value.

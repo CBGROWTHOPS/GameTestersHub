@@ -131,6 +131,14 @@ function updateAnimation() {
 }
 
 function handleContinue() {
+  // GA4: track offer CTA click
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'offer_click', {
+      offer_source: 'gth_continue',
+      cta_text: 'Start Getting Paid',
+    });
+  }
+
   // Get ClickMagick visitor ID (replaced by tracking code in the hidden span)
   const cmcVidEl = document.getElementById('cmc-vid');
   const cmcVid = cmcVidEl ? cmcVidEl.textContent.trim() : '';

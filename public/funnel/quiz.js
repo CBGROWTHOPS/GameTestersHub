@@ -318,7 +318,7 @@ async function submitForm(event) {
 
   // ClickMagick: log Action (Lead) conversion
   if (typeof clickmagick_cmc !== 'undefined' && clickmagick_cmc.log) {
-    clickmagick_cmc.log('a', 'lead');
+    clickmagick_cmc.log('a', 'optin');
   }
 
   console.log('[GTH Lead] PIXEL event_id:', JSON.stringify(eventId), 'length:', eventId.length, 'bytes:', new TextEncoder().encode(eventId).length);

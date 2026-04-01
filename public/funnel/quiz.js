@@ -356,29 +356,39 @@ async function submitForm(event) {
     if (window.GameTestersTracking && window.GameTestersTracking.clearLeadEventId) {
       window.GameTestersTracking.clearLeadEventId();
     }
-    window.location.href = buildContinueUrl(trackingInfo);
+    window.location.href = buildContinueUrl(trackingInfo, payload);
   } catch (err) {
     console.error('Submission error:', err);
     submitBtn.disabled = false;
     submitBtn.innerHTML = originalHTML;
     var fallbackInfo = window.GameTestersTracking ? window.GameTestersTracking.getTrackingData() : {};
-    window.location.href = buildContinueUrl(fallbackInfo);
+    window.location.href = buildContinueUrl(fallbackInfo, payload);
   }
 }
 
 /**
  * Build continue page URL with tracking parameters
  * Continue page handles the scanning animation before showing BeMob offer
+ * Also passes cmc_ parameters for ClickMagick cross-device tracking
  */
-function buildContinueUrl(trackingInfo) {
+function buildContinueUrl(trackingInfo, formData) {
   const params = new URLSearchParams();
-  
+
   if (trackingInfo.fbclid) params.set('fbclid', trackingInfo.fbclid);
   if (trackingInfo.fbc) params.set('fbc', trackingInfo.fbc);
   if (trackingInfo.fbp) params.set('fbp', trackingInfo.fbp);
   if (trackingInfo.uuid) params.set('uuid', trackingInfo.uuid);
   if (trackingInfo.event_id) params.set('event_id', trackingInfo.event_id);
-  
+
+  // ClickMagick cross-device tracking: cmc_ params picked up by cmc.js on continue page
+  if (formData) {
+    if (formData.email) params.set('cmc_email', formData.email);
+    if (formData.firstName) params.set('cmc_firstname', formData.firstName);
+    if (formData.lastName) params.set('cmc_lastname', formData.lastName);
+    if (formData.phone) params.set('cmc_phone', formData.phone);
+    if (formData.zip) params.set('cmc_postal_code', formData.zip);
+  }
+
   const queryString = params.toString();
   return queryString ? `/continue?${queryString}` : '/continue';
 }

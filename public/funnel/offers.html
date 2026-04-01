@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Exclusive Gaming Rewards - GameTestersHub</title>
-  <meta name="description" content="Choose your favorite way to earn while you play. Exclusive gaming rewards and offers from GameTestersHub.">
-  <link rel="stylesheet" href="/funnel/styles.css">
+  <title>Your Offers - GameTestersHub</title>
+  <meta name="robots" content="noindex, nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -20,22 +19,57 @@
     }
   </script>
   <script src='//cm.ssaff.link/cmc.js'></script>
+  <!-- Facebook Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1635681097458226');
+    fbq('track', 'PageView');
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5SNR88E3EX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5SNR88E3EX');
+  </script>
   <style>
-    /* Offer Wall Styles */
-    .offers-page {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-card: #1a1a25;
+      --text-primary: #ffffff;
+      --text-secondary: #a0a0b0;
+      --accent-purple: #8b5cf6;
+      --accent-cyan: #06b6d4;
+      --accent-pink: #ec4899;
+      --gradient-primary: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-cyan) 100%);
+      --gradient-glow: radial-gradient(circle at center, rgba(139, 92, 246, 0.3) 0%, transparent 70%);
+      --border-color: rgba(255, 255, 255, 0.1);
+      --shadow-glow: 0 0 40px rgba(139, 92, 246, 0.3);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
     }
 
-    .offers-header {
+    /* ── Header ── */
+    .wall-header {
       text-align: center;
-      padding: 16px 0 32px;
+      padding: 24px 24px 20px;
+      border-bottom: 1px solid var(--border-color);
     }
-
-    .offers-header a {
-      font-size: 20px;
+    .wall-logo {
+      font-size: 18px;
       font-weight: 700;
       text-decoration: none;
       background: var(--gradient-primary);
@@ -43,479 +77,377 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-
-    .offers-hero {
-      text-align: center;
-      padding: 80px 24px 20px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .offers-hero::before {
-      content: '';
-      position: absolute;
-      top: 30%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 700px;
-      height: 700px;
-      background: var(--gradient-glow);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .offers-hero .container {
-      position: relative;
-      z-index: 1;
-    }
-
-    .offers-hero h1 {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      font-weight: 800;
-      margin-bottom: 16px;
-      letter-spacing: -0.02em;
-    }
-
-    .offers-hero .subtitle {
-      font-size: clamp(1rem, 2vw, 1.25rem);
-      color: var(--text-secondary);
-      max-width: 500px;
-      margin: 0 auto;
-    }
-
-    /* Offer Cards Section */
-    .offers-section {
-      padding: 60px 24px 80px;
-    }
-
-    .offers-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 28px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .offer-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 20px;
-      padding: 36px 32px;
-      display: flex;
-      flex-direction: column;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .offer-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      border-radius: 20px 20px 0 0;
-    }
-
-    .offer-card.freecash::before {
-      background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
-    }
-
-    .offer-card.inboxdollars::before {
-      background: linear-gradient(90deg, var(--accent-cyan), #22c55e);
-    }
-
-    .offer-card.surveyauthority::before {
-      background: linear-gradient(90deg, var(--accent-pink), var(--accent-purple));
-    }
-
-    .offer-card:hover {
-      border-color: var(--accent-purple);
-      transform: translateY(-6px);
-      box-shadow: 0 20px 60px rgba(139, 92, 246, 0.15);
-    }
-
-    .offer-icon {
-      width: 64px;
-      height: 64px;
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 24px;
-      font-size: 32px;
-    }
-
-    .freecash .offer-icon {
-      background: rgba(139, 92, 246, 0.15);
-    }
-
-    .inboxdollars .offer-icon {
-      background: rgba(6, 182, 212, 0.15);
-    }
-
-    .surveyauthority .offer-icon {
-      background: rgba(236, 72, 153, 0.15);
-    }
-
-    .offer-card h3 {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
-    .offer-highlight {
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 100px;
+    .wall-social-proof {
       font-size: 13px;
       font-weight: 600;
-      margin-bottom: 16px;
-      width: fit-content;
+      color: var(--accent-cyan);
+      margin-top: 12px;
+    }
+    .wall-headline {
+      font-size: 20px;
+      font-weight: 700;
+      margin-top: 8px;
+      color: var(--text-primary);
+    }
+    .wall-subtext {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-top: 6px;
+      max-width: 360px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    .freecash .offer-highlight {
-      background: rgba(139, 92, 246, 0.2);
+    /* ── Trust Badges ── */
+    .wall-badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .wall-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      background: var(--bg-secondary);
+      padding: 6px 12px;
+      border-radius: 100px;
+      border: 1px solid var(--border-color);
+    }
+    .wall-badge svg {
+      width: 14px;
+      height: 14px;
       color: var(--accent-purple);
     }
 
-    .inboxdollars .offer-highlight {
-      background: rgba(6, 182, 212, 0.2);
-      color: var(--accent-cyan);
-    }
-
-    .surveyauthority .offer-highlight {
-      background: rgba(236, 72, 153, 0.2);
-      color: var(--accent-pink);
-    }
-
-    .offer-card p {
-      color: var(--text-secondary);
-      font-size: 16px;
-      line-height: 1.7;
-      margin-bottom: 28px;
-      flex: 1;
-    }
-
-    .offer-cta {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 16px 28px;
-      font-size: 16px;
-      font-weight: 600;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-family: inherit;
-      text-decoration: none;
-      color: white;
-      width: 100%;
-    }
-
-    .freecash .offer-cta {
-      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
-      box-shadow: 0 0 30px rgba(139, 92, 246, 0.25);
-    }
-
-    .inboxdollars .offer-cta {
-      background: linear-gradient(135deg, var(--accent-cyan), #22c55e);
-      box-shadow: 0 0 30px rgba(6, 182, 212, 0.25);
-    }
-
-    .surveyauthority .offer-cta {
-      background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
-      box-shadow: 0 0 30px rgba(236, 72, 153, 0.25);
-    }
-
-    .offer-cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 50px rgba(139, 92, 246, 0.4);
-    }
-
-    /* Newsletter Section */
-    .newsletter-section {
-      padding: 80px 24px 100px;
-      background: var(--bg-secondary);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .newsletter-section::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 500px;
-      height: 500px;
-      background: var(--gradient-glow);
-      pointer-events: none;
-      opacity: 0.5;
-    }
-
-    .newsletter-section .container {
-      position: relative;
-      z-index: 1;
-      max-width: 560px;
-    }
-
-    .newsletter-section h2 {
-      font-size: clamp(1.5rem, 3vw, 2.25rem);
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
-    .newsletter-section .newsletter-subtitle {
-      color: var(--text-secondary);
-      font-size: 16px;
-      margin-bottom: 36px;
-    }
-
-    .newsletter-form {
-      display: flex;
-      gap: 12px;
+    /* ── Offer Cards (stacked single column) ── */
+    .wall-offers {
+      padding: 24px 20px 40px;
       max-width: 480px;
       margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 
-    .newsletter-form input[type="email"] {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.05);
-      border: 2px solid var(--border-color);
-      border-radius: 12px;
-      padding: 16px 20px;
-      font-size: 16px;
-      color: var(--text-primary);
-      font-family: inherit;
-      transition: border-color 0.2s ease;
-      min-width: 0;
+    .wall-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
     }
-
-    .newsletter-form input[type="email"]:focus {
-      outline: none;
+    .wall-card:hover {
       border-color: var(--accent-purple);
-    }
-
-    .newsletter-form input[type="email"]::placeholder {
-      color: var(--text-secondary);
-      opacity: 0.5;
-    }
-
-    .newsletter-form button {
-      padding: 16px 28px;
-      background: var(--gradient-primary);
-      border: none;
-      border-radius: 12px;
-      color: white;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-family: inherit;
-      white-space: nowrap;
-    }
-
-    .newsletter-form button:hover {
       transform: translateY(-2px);
-      box-shadow: var(--shadow-glow);
+    }
+    .wall-card.featured {
+      border-color: var(--accent-purple);
+      box-shadow: 0 0 24px rgba(139, 92, 246, 0.15);
     }
 
-    .newsletter-disclaimer {
+    .wall-card-top {
+      position: relative;
+      height: 4px;
+    }
+    .wall-card.card-purple .wall-card-top { background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan)); }
+    .wall-card.card-cyan .wall-card-top { background: linear-gradient(90deg, var(--accent-cyan), #22c55e); }
+    .wall-card.card-pink .wall-card-top { background: linear-gradient(90deg, var(--accent-pink), var(--accent-purple)); }
+
+    .wall-card-body {
+      padding: 20px;
+    }
+
+    .wall-card-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .wall-card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+    .card-purple .wall-card-icon { background: rgba(139, 92, 246, 0.15); }
+    .card-cyan .wall-card-icon { background: rgba(6, 182, 212, 0.15); }
+    .card-pink .wall-card-icon { background: rgba(236, 72, 153, 0.15); }
+
+    .wall-card-info { flex: 1; min-width: 0; }
+    .wall-card-label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 8px;
+      border-radius: 6px;
+      margin-bottom: 6px;
+    }
+    .card-purple .wall-card-label { background: rgba(139, 92, 246, 0.2); color: var(--accent-purple); }
+    .card-cyan .wall-card-label { background: rgba(6, 182, 212, 0.2); color: var(--accent-cyan); }
+    .card-pink .wall-card-label { background: rgba(236, 72, 153, 0.2); color: var(--accent-pink); }
+
+    .featured-star {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+      background: var(--accent-purple);
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .wall-card-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .wall-card-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Bullet points */
+    .wall-card-bullets {
+      list-style: none;
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .wall-card-bullets li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       font-size: 13px;
       color: var(--text-secondary);
-      margin-top: 16px;
+    }
+    .wall-card-bullets svg {
+      width: 16px;
+      height: 16px;
+      color: var(--accent-cyan);
+      flex-shrink: 0;
     }
 
-    .newsletter-success {
-      display: none;
-      padding: 16px 24px;
-      background: rgba(34, 197, 94, 0.15);
-      border: 1px solid rgba(34, 197, 94, 0.4);
+    /* CTA button */
+    .wall-card-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      margin-top: 16px;
+      padding: 14px;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
       border-radius: 12px;
-      color: #22c55e;
-      font-weight: 500;
-      font-size: 16px;
-      margin-top: 16px;
+      cursor: pointer;
+      color: #fff;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      font-family: inherit;
     }
-
-    @media (max-width: 540px) {
-      .newsletter-form {
-        flex-direction: column;
-      }
-
-      .newsletter-form button {
-        width: 100%;
-      }
+    .wall-card-cta:hover {
+      transform: translateY(-1px);
     }
+    .card-purple .wall-card-cta { background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan)); box-shadow: 0 0 20px rgba(139, 92, 246, 0.25); }
+    .card-cyan .wall-card-cta { background: linear-gradient(135deg, var(--accent-cyan), #22c55e); box-shadow: 0 0 20px rgba(6, 182, 212, 0.25); }
+    .card-pink .wall-card-cta { background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple)); box-shadow: 0 0 20px rgba(236, 72, 153, 0.25); }
 
-    @media (max-width: 768px) {
-      .offers-hero {
-        padding: 60px 24px 10px;
-      }
-
-      .offers-section {
-        padding: 40px 24px 60px;
-      }
-
-      .offers-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .offer-card {
-        padding: 28px 24px;
-      }
-
-      .newsletter-section {
-        padding: 60px 24px 80px;
-      }
+    /* ── Footer ── */
+    .wall-footer {
+      text-align: center;
+      padding: 24px;
+      border-top: 1px solid var(--border-color);
+      font-size: 13px;
+      color: var(--text-secondary);
     }
   </style>
 </head>
-<body class="offers-page">
+<body>
 
   <!-- Header -->
-  <header class="offers-header" style="padding: 24px;">
-    <div class="container">
-      <a href="/">GameTestersHub</a>
+  <header class="wall-header">
+    <a href="/" class="wall-logo">GameTestersHub</a>
+    <p class="wall-social-proof">4,521 gamers matched this week</p>
+    <h1 class="wall-headline">Almost done! Pick one to start earning.</h1>
+    <p class="wall-subtext">Complete a free signup to unlock your gaming rewards.</p>
+    <div class="wall-badges">
+      <span class="wall-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Verified partners
+      </span>
+      <span class="wall-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        No purchase required
+      </span>
+      <span class="wall-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Secure
+      </span>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="offers-hero">
-    <div class="container">
-      <h1>Exclusive Gaming Rewards <span style="font-style: normal;">&#127918;</span></h1>
-      <p class="subtitle">Choose your favorite way to earn while you play</p>
-    </div>
-  </section>
+  <!-- Offer Cards (stacked) -->
+  <main class="wall-offers">
 
-  <!-- Offer Cards -->
-  <section class="offers-section">
-    <div class="offers-grid">
-
-      <!-- FreeCash -->
-      <div class="offer-card freecash">
-        <div class="offer-icon">&#128176;</div>
-        <span class="offer-highlight">Top Pick</span>
-        <h3>FreeCash</h3>
-        <p>Earn up to $100+ playing games, taking surveys &amp; completing tasks. The #1 rewards platform trusted by millions.</p>
-        <a href="https://trk.ssaff.link/gth-freecash/[cmc_vid]" class="offer-cta" target="_blank" rel="noopener noreferrer">
+    <!-- FreeCash -->
+    <div class="wall-card featured card-purple" style="position: relative;">
+      <div class="wall-card-top"></div>
+      <span class="featured-star">&#11088; Most Popular</span>
+      <div class="wall-card-body">
+        <div class="wall-card-row">
+          <div class="wall-card-icon">&#128176;</div>
+          <div class="wall-card-info">
+            <span class="wall-card-label">Top Pick</span>
+            <h3 class="wall-card-title">FreeCash</h3>
+            <p class="wall-card-desc">Earn up to $100+ playing games, taking surveys &amp; completing tasks. Trusted by millions.</p>
+          </div>
+        </div>
+        <ul class="wall-card-bullets">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Free to join</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Quick signup &mdash; under 2 minutes</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Instant cashout via PayPal</li>
+        </ul>
+        <button class="wall-card-cta" data-offer="freecash" data-link="https://trk.ssaff.link/gth-freecash" onclick="handleOfferClick(this)">
           Start Earning Now
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </a>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
       </div>
+    </div>
 
-      <!-- InboxDollars -->
-      <div class="offer-card inboxdollars">
-        <div class="offer-icon">&#128231;</div>
-        <span class="offer-highlight">$5 Signup Bonus</span>
-        <h3>InboxDollars</h3>
-        <p>Get paid to read emails, play games &amp; watch videos. $5 bonus just for signing up!</p>
-        <a href="https://trk.ssaff.link/gth-inbox/[cmc_vid]" class="offer-cta" target="_blank" rel="noopener noreferrer">
+    <!-- InboxDollars -->
+    <div class="wall-card card-cyan">
+      <div class="wall-card-top"></div>
+      <div class="wall-card-body">
+        <div class="wall-card-row">
+          <div class="wall-card-icon">&#128231;</div>
+          <div class="wall-card-info">
+            <span class="wall-card-label">$5 Signup Bonus</span>
+            <h3 class="wall-card-title">InboxDollars</h3>
+            <p class="wall-card-desc">Get paid to read emails, play games &amp; watch videos. $5 bonus just for signing up!</p>
+          </div>
+        </div>
+        <ul class="wall-card-bullets">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>$5 instant signup bonus</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Quick signup &mdash; under 2 minutes</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>No purchase required</li>
+        </ul>
+        <button class="wall-card-cta" data-offer="inboxdollars" data-link="https://trk.ssaff.link/gth-inbox" onclick="handleOfferClick(this)">
           Claim $5 Bonus
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </a>
-      </div>
-
-      <!-- Survey Authority -->
-      <div class="offer-card surveyauthority">
-        <div class="offer-icon">&#128203;</div>
-        <span class="offer-highlight">Instant Rewards</span>
-        <h3>Survey Authority</h3>
-        <p>Quick surveys, instant rewards. Share your opinions and get paid.</p>
-        <a href="https://trk.ssaff.link/gth-klink/[cmc_vid]" class="offer-cta" target="_blank" rel="noopener noreferrer">
-          Take Surveys
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </a>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Newsletter Signup -->
-  <section class="newsletter-section">
-    <div class="container">
-      <h2>Stay in the Loop</h2>
-      <p class="newsletter-subtitle">Get exclusive deals, new offers, and gaming tips delivered to your inbox.</p>
-
-      <form class="newsletter-form" id="newsletter-form">
-        <input type="email" name="email" placeholder="Enter your email" required autocomplete="email">
-        <button type="submit">Subscribe</button>
-      </form>
-      <p class="newsletter-disclaimer">No spam, ever. Unsubscribe anytime.</p>
-      <div class="newsletter-success" id="newsletter-success">
-        You're in! Check your inbox for a welcome message.
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
       </div>
     </div>
-  </section>
+
+    <!-- Klink -->
+    <div class="wall-card card-pink">
+      <div class="wall-card-top"></div>
+      <div class="wall-card-body">
+        <div class="wall-card-row">
+          <div class="wall-card-icon">&#127918;</div>
+          <div class="wall-card-info">
+            <span class="wall-card-label">Instant Rewards</span>
+            <h3 class="wall-card-title">Klink</h3>
+            <p class="wall-card-desc">Earn cash &amp; rewards playing mobile games. Quick tasks, instant payouts.</p>
+          </div>
+        </div>
+        <ul class="wall-card-bullets">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Mobile-friendly</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Quick signup &mdash; under 2 minutes</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>No purchase required</li>
+        </ul>
+        <button class="wall-card-cta" data-offer="klink" data-link="https://trk.ssaff.link/gth-klink" onclick="handleOfferClick(this)">
+          Start Playing
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+  </main>
 
   <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <p>&copy; 2026 GameTestersHub. All rights reserved.</p>
-      <div class="footer-links">
-        <a href="/">Home</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
-      </div>
-    </div>
+  <footer class="wall-footer">
+    &copy; 2026 GameTestersHub. All rights reserved.
   </footer>
 
-  <!-- MailerLite Universal Script -->
+  <!-- tracking.js NOT loaded here — inline pixel + handleOfferClick handles all tracking -->
   <script>
-    (function(w,d,e,u,f,l,n){
-      w[f]=w[f]||function(){(w[f].q=w[f].q||[]).push(arguments);},
-      l=d.createElement(e),l.async=1,l.src=u,
-      n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);
-    })(window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
-    ml('account', '2149490');
-  </script>
+    /**
+     * Get ClickMagick visitor ID from cmc object or cookie
+     */
+    function getCmcVid() {
+      var cmc = window.clickmagick_cmc;
+      if (cmc && cmc.vid) return cmc.vid;
+      if (cmc && cmc.cmc_vid) return cmc.cmc_vid;
+      var match = document.cookie.match(/cmc_vid=([^;]+)/);
+      return match ? match[1] : '';
+    }
 
-  <script>
-    // Newsletter form submission via MailerLite API
-    const form = document.getElementById('newsletter-form');
-    const successMsg = document.getElementById('newsletter-success');
+    /**
+     * Generate a unique event ID for deduplication
+     */
+    function generateEventId() {
+      return 'gth_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    }
 
-    form.addEventListener('submit', async function(e) {
-      e.preventDefault();
+    /**
+     * Handle offer click:
+     * 1. Fire Lead pixel (FB, GA4, ClickMagick)
+     * 2. Redirect to smart link with cmc_vid
+     */
+    function handleOfferClick(btn) {
+      var offerName = btn.getAttribute('data-offer');
+      var smartLink = btn.getAttribute('data-link');
+      var cmcVid = getCmcVid();
+      var eventId = generateEventId();
 
-      const email = form.querySelector('input[name="email"]').value.trim();
-      if (!email) return;
+      // ── Fire Lead Pixel ──
 
-      const submitBtn = form.querySelector('button');
-      const originalText = submitBtn.textContent;
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Subscribing...';
-
-      try {
-        // MailerLite embedded form submission
-        // Group ID: 180654306318353834
-        ml('subscribe', {
-          email: email,
-          groups: ['180654306318353834']
-        });
-
-        // Show success state
-        form.style.display = 'none';
-        successMsg.style.display = 'block';
-      } catch (err) {
-        console.error('Subscription error:', err);
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalText;
+      // Facebook Pixel Lead event
+      if (typeof fbq !== 'undefined') {
+        fbq('track', 'Lead', {
+          content_name: offerName,
+        }, { eventID: eventId });
       }
-    });
+
+      // ClickMagick Action (Lead)
+      if (window.clickmagick_cmc && window.clickmagick_cmc.log) {
+        window.clickmagick_cmc.log('a', 'optin');
+      }
+
+      // GA4
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'generate_lead', {
+          funnel_name: 'gth_offer_wall',
+          offer_name: offerName,
+          event_id: eventId,
+        });
+        gtag('event', 'offer_click', {
+          offer_name: offerName,
+        });
+      }
+
+      // ── Redirect to smart link ──
+      var url = cmcVid ? smartLink + '/' + encodeURIComponent(cmcVid) : smartLink;
+      window.location.href = url;
+    }
   </script>
 
-  <script src="/funnel/tracking.js"></script>
 </body>
 </html>

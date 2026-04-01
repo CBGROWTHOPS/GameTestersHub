@@ -293,33 +293,22 @@ async function submitForm(event) {
     uuid = window.GameTestersTracking.getOrCreateSessionUuid();
   }
 
-  // GA4: generate_lead + user properties
+  // GA4: quiz completion (not Lead — Lead fires on offer wall click)
   if (typeof gtag !== 'undefined') {
     gtag('set', 'user_properties', {
       user_game_preference: quizAnswers.game_preference || '',
       user_platform: quizAnswers.platform || '',
       user_availability: quizAnswers.availability || '',
     });
-    gtag('event', 'generate_lead', {
+    gtag('event', 'quiz_complete', {
       funnel_name: 'gth_quiz',
       game_preference: quizAnswers.game_preference,
       platform: quizAnswers.platform,
-      availability: quizAnswers.availability,
-      experience: quizAnswers.experience,
-      motivation: quizAnswers.motivation,
       event_id: eventId,
     });
   }
 
-  // No value/currency — ClickMagick Audience Optimization sends CAPI with its own value.
-  if (typeof window !== 'undefined' && window.fbq) {
-    window.fbq('track', 'Lead', {}, { eventID: eventId });
-  }
-
-  // ClickMagick: log Action (Lead) conversion
-  if (typeof clickmagick_cmc !== 'undefined' && clickmagick_cmc.log) {
-    clickmagick_cmc.log('a', 'optin');
-  }
+  // Lead pixel moved to offer wall page — fires on offer click, not quiz submit
 
   console.log('[GTH Lead] PIXEL event_id:', JSON.stringify(eventId), 'length:', eventId.length, 'bytes:', new TextEncoder().encode(eventId).length);
   console.log('[GTH Lead] uuid for external_id:', uuid ? 'present' : 'MISSING', uuid);
@@ -390,7 +379,7 @@ function buildContinueUrl(trackingInfo, formData) {
   }
 
   const queryString = params.toString();
-  return queryString ? `/continue?${queryString}` : '/continue';
+  return queryString ? `/offers?${queryString}` : '/offers';
 }
 
 /**

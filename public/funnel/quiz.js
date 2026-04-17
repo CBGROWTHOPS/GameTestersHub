@@ -357,8 +357,8 @@ async function submitForm(event) {
 
 /**
  * Build continue page URL with tracking parameters
- * Continue page handles the scanning animation before showing BeMob offer
- * Also passes cmc_ parameters for ClickMagick cross-device tracking
+ * Continue page handles the scanning animation before showing the offer
+ * Passes cmc_ parameters for ClickMagick cross-device tracking
  */
 function buildContinueUrl(trackingInfo, formData) {
   const params = new URLSearchParams();

@@ -121,7 +121,7 @@ function clearLeadEventId() {
   sessionStorage.removeItem('gth_lead_event_id');
 }
 
-// Stable uuid for this session (MailerLite, BeMob s1)
+// Stable uuid for this session (MailerLite, ClickMagick s1)
 let sessionUuid = null;
 function getOrCreateSessionUuid() {
   if (!sessionUuid) {

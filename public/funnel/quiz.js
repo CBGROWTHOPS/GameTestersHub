@@ -34,10 +34,10 @@ const quizSteps = [
     progressLabel: 'Halfway there',
     showTestimonial: true,
     options: [
-      { value: 'paypal', label: 'PayPal', icon: 'P', iconBg: '#003087' },
-      { value: 'amazon', label: 'Amazon Gift Card', icon: 'a', iconBg: '#FF9900' },
-      { value: 'crypto', label: 'Crypto', icon: '\u20BF', iconBg: '#F7931A' },
-      { value: 'cashapp', label: 'Cash App', icon: '$', iconBg: '#00D632' }
+      { value: 'paypal', label: 'PayPal' },
+      { value: 'amazon', label: 'Amazon Gift Card' },
+      { value: 'crypto', label: 'Crypto' },
+      { value: 'cashapp', label: 'Cash App' }
     ]
   },
   {

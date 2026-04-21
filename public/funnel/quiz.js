@@ -10,64 +10,39 @@ const SUBMIT_URL = '/api/submit-lead';
 
 // Quiz state
 let currentStep = 1;
-const totalSteps = 6;
+const totalSteps = 4;
 const quizAnswers = {};
 
 // Quiz data
 const quizSteps = [
   {
-    id: 'game_preference',
-    question: 'What type of games do you enjoy most?',
+    id: 'payout_method',
+    question: 'How do you want to get paid?',
     options: [
-      { value: 'action', label: 'Action / Shooter' },
-      { value: 'rpg', label: 'RPG / Adventure' },
-      { value: 'sports', label: 'Sports / Racing' },
-      { value: 'puzzle', label: 'Puzzle / Strategy' },
-      { value: 'casino', label: 'Casino / Slots' },
-      { value: 'all', label: 'I love all types!' }
+      { value: 'paypal', label: 'PayPal' },
+      { value: 'amazon', label: 'Amazon Gift Card' },
+      { value: 'crypto', label: 'Crypto' },
+      { value: 'cashapp', label: 'Cash App' }
     ]
   },
   {
-    id: 'platform',
-    question: 'What device do you primarily game on?',
+    id: 'time_available',
+    question: 'How much time per day can you spend?',
     options: [
-      { value: 'pc', label: 'PC / Desktop' },
-      { value: 'playstation', label: 'PlayStation' },
-      { value: 'xbox', label: 'Xbox' },
-      { value: 'switch', label: 'Nintendo Switch' },
-      { value: 'mobile', label: 'Mobile (iOS/Android)' },
-      { value: 'multiple', label: 'Multiple platforms' }
+      { value: 'under_15', label: 'Under 15 minutes' },
+      { value: '15_30', label: '15 - 30 minutes' },
+      { value: '30_60', label: '30 - 60 minutes' },
+      { value: '60_plus', label: '1+ hours' }
     ]
   },
   {
-    id: 'availability',
-    question: 'How many hours per week can you dedicate?',
+    id: 'earnings_use',
+    question: 'What would you use the earnings for?',
     options: [
-      { value: '5-10', label: '5-10 hours' },
-      { value: '10-20', label: '10-20 hours' },
-      { value: '20-40', label: '20-40 hours' },
-      { value: '40+', label: '40+ hours (full-time)' }
-    ]
-  },
-  {
-    id: 'experience',
-    question: 'Have you tested games before?',
-    options: [
-      { value: 'professional', label: 'Yes, professionally' },
-      { value: 'beta', label: 'Yes, beta tests for fun' },
-      { value: 'interested', label: 'No, but I\'m interested' },
-      { value: 'none', label: 'No experience' }
-    ]
-  },
-  {
-    id: 'motivation',
-    question: 'What\'s most important to you?',
-    options: [
-      { value: 'income', label: 'Earning extra income' },
-      { value: 'early_access', label: 'Playing games before anyone else' },
-      { value: 'improve', label: 'Helping improve games I love' },
-      { value: 'career', label: 'Building a career in gaming' },
-      { value: 'all', label: 'All of the above!' }
+      { value: 'food', label: 'Food / eating out' },
+      { value: 'bills', label: 'Bills' },
+      { value: 'fun', label: 'Extra spending money' },
+      { value: 'savings', label: 'Save it' }
     ]
   }
 ];

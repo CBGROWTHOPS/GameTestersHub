@@ -179,16 +179,9 @@ function renderContactForm() {
   
   container.innerHTML = `
     <div class="funnel-step">
-      <div class="funnel-success-badge">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
-          <polyline points="22 4 12 14.01 9 11.01"/>
-        </svg>
-        You Qualify!
-      </div>
-      <h2 class="funnel-question">Great news! You're eligible for testing opportunities.</h2>
-      <p class="funnel-subtext">Enter your details below to receive game testing offers matched to your profile.</p>
-      
+      <h2 class="funnel-question">Last step &mdash; where should we send your match?</h2>
+      <p class="funnel-subtext">We'll show you the app that fits your answers.</p>
+
       <form class="funnel-form" onsubmit="submitForm(event)">
         <div class="form-row">
           <div class="form-group">
@@ -213,14 +206,13 @@ function renderContactForm() {
           <input type="text" id="zip" name="zip" placeholder="12345" required pattern="[0-9]{5}" maxlength="5">
         </div>
         <button type="submit" class="funnel-submit" id="submit-btn">
-          Get My Testing Opportunities
+          Show My Match
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M5 12h14M12 5l7 7-7 7"/>
           </svg>
         </button>
         <p class="form-disclaimer">
-          By submitting, you agree to receive emails about game testing opportunities. 
-          Unsubscribe anytime.
+          By submitting, you agree to receive emails about this offer. Unsubscribe anytime.
         </p>
       </form>
     </div>

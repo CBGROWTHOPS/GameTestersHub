@@ -19,6 +19,7 @@ const quizSteps = [
     id: 'interest',
     question: 'Would you use an app that pays for your lunch every day?',
     subtext: '100% free. No credit card, no downloads.',
+    progressLabel: 'Quick start',
     options: [
       { value: 'yes_show', label: 'Yes, show me how' },
       { value: 'obviously', label: 'Obviously' },
@@ -30,17 +31,20 @@ const quizSteps = [
     id: 'payout_method',
     question: 'How do you want to get paid?',
     subtext: 'Real cashouts. Over 2 million users have been paid out.',
+    progressLabel: 'Halfway there',
+    showTestimonial: true,
     options: [
-      { value: 'paypal', label: 'PayPal' },
-      { value: 'amazon', label: 'Amazon Gift Card' },
-      { value: 'crypto', label: 'Crypto' },
-      { value: 'cashapp', label: 'Cash App' }
+      { value: 'paypal', label: 'PayPal', icon: 'P', iconBg: '#003087' },
+      { value: 'amazon', label: 'Amazon Gift Card', icon: 'a', iconBg: '#FF9900' },
+      { value: 'crypto', label: 'Crypto', icon: '\u20BF', iconBg: '#F7931A' },
+      { value: 'cashapp', label: 'Cash App', icon: '$', iconBg: '#00D632' }
     ]
   },
   {
     id: 'time_available',
     question: 'How much time per day can you spend?',
     subtext: 'Even 10 minutes a day adds up &mdash; use it on breaks or while watching TV.',
+    progressLabel: 'Almost done',
     options: [
       { value: 'under_15', label: 'Under 15 minutes' },
       { value: '15_30', label: '15 - 30 minutes' },
@@ -70,24 +74,25 @@ function initFunnel() {
  */
 function updateProgress() {
   const progressBar = document.getElementById('progress-bar');
-  const stepIndicator = document.getElementById('current-step');
-  const totalIndicator = document.getElementById('total-steps');
+  const progressLabel = document.getElementById('progress-label');
   const backNav = document.getElementById('funnel-nav');
-  
+
   if (progressBar) {
     const progress = (currentStep / totalSteps) * 100;
     progressBar.style.width = `${progress}%`;
   }
-  
-  if (stepIndicator) {
-    stepIndicator.textContent = currentStep;
+
+  // Warmer per-step labels
+  if (progressLabel) {
+    let label = `Step ${currentStep} of ${totalSteps}`;
+    if (currentStep <= quizSteps.length && quizSteps[currentStep - 1].progressLabel) {
+      label = quizSteps[currentStep - 1].progressLabel;
+    } else if (currentStep > quizSteps.length) {
+      label = 'Just your info';
+    }
+    progressLabel.textContent = label;
   }
-  
-  if (totalIndicator) {
-    totalIndicator.textContent = totalSteps;
-  }
-  
-  // Show back button after first step
+
   if (backNav) {
     backNav.style.display = currentStep > 1 ? 'flex' : 'none';
   }
@@ -123,9 +128,11 @@ function renderStep() {
         <div class="funnel-step">
           <h2 class="funnel-question">${step.question}</h2>
           ${step.subtext ? `<p class="funnel-subtext">${step.subtext}</p>` : ''}
+          ${step.showTestimonial ? renderTestimonial() : ''}
           <div class="funnel-options">
             ${step.options.map(opt => `
               <button class="funnel-option" onclick="selectOption('${step.id}', '${opt.value}', this)">
+                ${opt.icon ? `<span class="option-icon" style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:${opt.iconBg};color:#fff;font-weight:700;font-size:15px;margin-right:12px;vertical-align:middle;">${opt.icon}</span>` : ''}
                 ${opt.label}
               </button>
             `).join('')}
@@ -145,6 +152,30 @@ function renderStep() {
       container.classList.remove('fade-in');
     }, 300);
   }, 150);
+}
+
+/**
+ * Rotating testimonial card. Displayed on steps that have showTestimonial: true.
+ * Picks a random testimonial per render so repeat visitors see variety.
+ */
+const TESTIMONIALS = [
+  { stars: 5, text: 'Cashed out $47 my first week just playing games on my breaks.', author: 'Jake R.' },
+  { stars: 5, text: 'Didn\'t believe it at first but I\'ve been eating out on this for a month now.', author: 'Marcus T.' },
+  { stars: 5, text: 'Easiest signup ever. Got my first payout to PayPal in 3 days.', author: 'Dani K.' }
+];
+
+function renderTestimonial() {
+  const t = TESTIMONIALS[Math.floor(Math.random() * TESTIMONIALS.length)];
+  return `
+    <div class="funnel-testimonial" style="background:#1a1a25;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:14px 16px;margin:16px 0 20px;display:flex;gap:12px;align-items:flex-start;">
+      <div style="flex-shrink:0;width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#8b5cf6,#06b6d4);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:14px;">${t.author.charAt(0)}</div>
+      <div style="flex:1;min-width:0;">
+        <div style="color:#fbbf24;font-size:13px;letter-spacing:1px;">${'&#9733;'.repeat(t.stars)}</div>
+        <p style="font-size:14px;color:#e5e5e5;line-height:1.4;margin:4px 0 2px;">&ldquo;${t.text}&rdquo;</p>
+        <p style="font-size:12px;color:#a0a0b0;">&mdash; ${t.author}</p>
+      </div>
+    </div>
+  `;
 }
 
 /**
@@ -185,6 +216,14 @@ function renderContactForm() {
     <div class="funnel-step">
       <h2 class="funnel-question">Last step &mdash; where should we send your match?</h2>
       <p class="funnel-subtext">No spam. No credit card. Unsubscribe anytime.</p>
+
+      <div class="funnel-security-badge" style="display:flex;align-items:center;gap:8px;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.25);border-radius:10px;padding:10px 14px;margin:16px 0 18px;font-size:13px;color:#86efac;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        <span>Your info is encrypted and never sold to third parties</span>
+      </div>
 
       <form class="funnel-form" onsubmit="submitForm(event)">
         <div class="form-row">

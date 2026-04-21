@@ -217,14 +217,6 @@ function renderContactForm() {
       <h2 class="funnel-question">Last step &mdash; where should we send your match?</h2>
       <p class="funnel-subtext">No spam. No credit card. Unsubscribe anytime.</p>
 
-      <div class="funnel-security-badge" style="display:flex;align-items:center;gap:8px;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.25);border-radius:10px;padding:10px 14px;margin:16px 0 18px;font-size:13px;color:#86efac;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;">
-          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-        </svg>
-        <span>Your info is encrypted and never sold to third parties</span>
-      </div>
-
       <form class="funnel-form" onsubmit="submitForm(event)">
         <div class="form-row">
           <div class="form-group">

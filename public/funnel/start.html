@@ -25,7 +25,7 @@
   <!-- Live match counter (social proof) -->
   <div id="live-counter" style="background:rgba(34,197,94,0.08);border-bottom:1px solid rgba(34,197,94,0.2);color:#86efac;text-align:center;padding:8px 16px;font-size:13px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:8px;">
     <span style="display:inline-block;width:8px;height:8px;background:#22c55e;border-radius:50%;box-shadow:0 0 0 4px rgba(34,197,94,0.2);animation:pulse 2s infinite;"></span>
-    <span><span id="live-count">412</span> people matched in the last 24 hours</span>
+    <span><span id="live-count">4,521</span> people matched this week</span>
   </div>
   <style>
     @keyframes pulse {
@@ -77,16 +77,17 @@
   <script src="/funnel/tracking.js"></script>
   <script src="/funnel/quiz.js"></script>
   <script>
-    // Live counter — increments randomly every 8-22s to feel organic
+    // Live counter — increments randomly every 8-22s to feel organic.
+    // Base matches offers.html ("4,521 people matched this week") so the
+    // number is consistent across pages.
     (function () {
       var el = document.getElementById('live-count');
       if (!el) return;
-      // Seed slightly random per page load so it doesn't always say 412
-      var base = 412 + Math.floor(Math.random() * 14);
-      el.textContent = base;
+      var base = 4521 + Math.floor(Math.random() * 18);
+      el.textContent = base.toLocaleString();
       function tick() {
         base += 1;
-        el.textContent = base;
+        el.textContent = base.toLocaleString();
         setTimeout(tick, 8000 + Math.random() * 14000);
       }
       setTimeout(tick, 8000 + Math.random() * 14000);

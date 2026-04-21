@@ -18,6 +18,7 @@ const quizSteps = [
   {
     id: 'interest',
     question: 'Would you use an app that pays for your lunch every day?',
+    subtext: '100% free. No credit card, no downloads.',
     options: [
       { value: 'yes_show', label: 'Yes, show me how' },
       { value: 'obviously', label: 'Obviously' },
@@ -28,6 +29,7 @@ const quizSteps = [
   {
     id: 'payout_method',
     question: 'How do you want to get paid?',
+    subtext: 'Real cashouts. Over 2 million users have been paid out.',
     options: [
       { value: 'paypal', label: 'PayPal' },
       { value: 'amazon', label: 'Amazon Gift Card' },
@@ -38,6 +40,7 @@ const quizSteps = [
   {
     id: 'time_available',
     question: 'How much time per day can you spend?',
+    subtext: 'Even 10 minutes a day adds up &mdash; use it on breaks or while watching TV.',
     options: [
       { value: 'under_15', label: 'Under 15 minutes' },
       { value: '15_30', label: '15 - 30 minutes' },
@@ -119,6 +122,7 @@ function renderStep() {
       container.innerHTML = `
         <div class="funnel-step">
           <h2 class="funnel-question">${step.question}</h2>
+          ${step.subtext ? `<p class="funnel-subtext">${step.subtext}</p>` : ''}
           <div class="funnel-options">
             ${step.options.map(opt => `
               <button class="funnel-option" onclick="selectOption('${step.id}', '${opt.value}', this)">
@@ -180,7 +184,7 @@ function renderContactForm() {
   container.innerHTML = `
     <div class="funnel-step">
       <h2 class="funnel-question">Last step &mdash; where should we send your match?</h2>
-      <p class="funnel-subtext">We'll show you the app that fits your answers.</p>
+      <p class="funnel-subtext">No spam. No credit card. Unsubscribe anytime.</p>
 
       <form class="funnel-form" onsubmit="submitForm(event)">
         <div class="form-row">

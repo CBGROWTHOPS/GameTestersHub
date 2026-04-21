@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Claim $10 Bonus - Play Games, Get Paid</title>
+  <meta name="description" content="Get paid to play games on your phone. $10 signup bonus, ~1 min to start. Free, no credit card.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <script>
+    window.clickmagick_cmc = {
+      uid: '211897',
+      hid: '2728055707',
+      cmc_project: 'GTH - SSAFF',
+      vid_info: 'on',
+      utm_source: 'organic',
+    }
+  </script>
+  <script src='//cm.ssaff.link/cmc.js'></script>
+
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1635681097458226');
+    fbq('track', 'PageView');
+  </script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5SNR88E3EX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5SNR88E3EX');
+  </script>
+
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg-card: #151521;
+      --bg-elevated: #1e1e2d;
+      --text: #ffffff;
+      --text-dim: #9ca3af;
+      --neon: #39ff14;
+      --neon-glow: rgba(57, 255, 20, 0.55);
+      --border: rgba(255, 255, 255, 0.08);
+      --paypal: #0070ba;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body { overscroll-behavior-y: none; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 100px;
+    }
+
+    /* Live strip */
+    .live {
+      background: rgba(34, 197, 94, 0.08);
+      border-bottom: 1px solid rgba(34, 197, 94, 0.2);
+      color: #86efac;
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .live-dot {
+      width: 8px; height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 4px rgba(34,197,94,0.2); }
+      50% { box-shadow: 0 0 0 8px rgba(34,197,94,0); }
+    }
+
+    .wrap {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 24px 18px 40px;
+    }
+
+    /* Hero */
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      background: rgba(57, 255, 20, 0.12);
+      border: 1px solid rgba(57, 255, 20, 0.45);
+      color: var(--neon);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 100px;
+      text-shadow: 0 0 6px var(--neon-glow);
+    }
+
+    h1 {
+      font-size: 32px;
+      line-height: 1.1;
+      font-weight: 900;
+      letter-spacing: -0.025em;
+      margin-top: 14px;
+    }
+    h1 .neon {
+      color: var(--neon);
+      text-shadow: 0 0 10px var(--neon-glow);
+    }
+    .hero-sub {
+      margin-top: 12px;
+      font-size: 16px;
+      color: var(--text-dim);
+      line-height: 1.45;
+    }
+
+    /* iOS-style notification mock */
+    .notif {
+      margin: 22px 0;
+      padding: 14px 14px 14px 12px;
+      background: rgba(30, 30, 45, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+      animation: slideDown 0.6s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+    }
+    @keyframes slideDown {
+      from { transform: translateY(-12px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .notif-icon {
+      width: 40px; height: 40px;
+      background: var(--paypal);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 900;
+      font-size: 18px;
+      font-family: Georgia, serif;
+      flex-shrink: 0;
+    }
+    .notif-body { flex: 1; min-width: 0; }
+    .notif-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-bottom: 3px;
+    }
+    .notif-app { font-weight: 600; color: var(--text); }
+    .notif-title { font-size: 15px; font-weight: 700; color: var(--text); }
+    .notif-msg {
+      font-size: 14px;
+      color: #d4d4d8;
+      margin-top: 2px;
+    }
+    .notif-msg .amount {
+      color: var(--neon);
+      font-weight: 700;
+      text-shadow: 0 0 6px var(--neon-glow);
+    }
+
+    /* CTA */
+    .cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 18px 20px;
+      font-size: 17px;
+      font-weight: 800;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--neon), #00d632);
+      color: #0a0a0f;
+      box-shadow: 0 0 28px rgba(57, 255, 20, 0.45), 0 6px 20px rgba(0, 0, 0, 0.3);
+      font-family: inherit;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+      letter-spacing: -0.01em;
+    }
+    .cta:active { transform: scale(0.98); box-shadow: 0 0 18px rgba(57, 255, 20, 0.35); }
+
+    .cta-sub {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-top: 10px;
+      letter-spacing: 0.02em;
+    }
+
+    /* Live payout feed */
+    .feed {
+      margin-top: 36px;
+      padding: 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+    .feed-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 800;
+      color: #86efac;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .feed-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+    .feed-row:last-child { border-bottom: none; }
+    .feed-name { color: var(--text); font-weight: 600; }
+    .feed-meta { font-size: 12px; color: var(--text-dim); margin-top: 1px; }
+    .feed-amt { color: var(--neon); font-weight: 700; font-size: 15px; text-shadow: 0 0 6px var(--neon-glow); }
+
+    /* Bullets */
+    .bullets {
+      margin-top: 26px;
+      padding: 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+    .bullets-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      font-size: 15px;
+    }
+    .bullets-item svg {
+      width: 22px; height: 22px;
+      flex-shrink: 0;
+      color: var(--neon);
+      filter: drop-shadow(0 0 4px var(--neon-glow));
+    }
+
+    /* Testimonial stack */
+    .tstack { margin-top: 28px; }
+    .tstack-head {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 12px;
+    }
+    .t {
+      padding: 14px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 10px;
+    }
+    .t-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+    .t-av {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #fff;
+      font-size: 13px;
+    }
+    .t-name { font-weight: 700; font-size: 13px; }
+    .t-stars { color: #fbbf24; font-size: 12px; letter-spacing: 1px; }
+    .t-text { font-size: 14px; color: #e5e5e5; line-height: 1.45; }
+
+    /* Sticky CTA */
+    .sticky {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+      background: linear-gradient(to top, var(--bg) 60%, rgba(10, 10, 15, 0.85) 85%, rgba(10, 10, 15, 0));
+      z-index: 100;
+    }
+    .sticky .cta { padding: 16px 20px; font-size: 16px; }
+
+    footer {
+      text-align: center;
+      padding: 18px;
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="live">
+    <span class="live-dot"></span>
+    <span><span id="live-count">4,521</span> people joined this week</span>
+  </div>
+
+  <main class="wrap">
+
+    <!-- Hero -->
+    <span class="pill">&#127881; $10 SIGNUP BONUS</span>
+    <h1>Get <span class="neon">$10</span> free to play games on your phone.</h1>
+    <p class="hero-sub">Join 2M+ people earning cashouts to PayPal, Amazon, crypto, or Cash App &mdash; during breaks, commutes, or while watching TV.</p>
+
+    <!-- iOS notification mock -->
+    <div class="notif">
+      <div class="notif-icon">P</div>
+      <div class="notif-body">
+        <div class="notif-top">
+          <span class="notif-app">PayPal</span>
+          <span>now</span>
+        </div>
+        <div class="notif-title">You received a payment</div>
+        <div class="notif-msg"><span class="amount">$10.00</span> signup bonus from Freecash.</div>
+      </div>
+    </div>
+
+    <!-- Primary CTA -->
+    <a href="#" class="cta" data-offer="freecash" data-link="https://trk.ssaff.link/gth-freecash" onclick="handleOfferClick(event, this)">
+      Claim My $10 Bonus
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <p class="cta-sub">Free &middot; No credit card &middot; ~1 min to sign up and start earning</p>
+
+    <!-- Live feed -->
+    <div class="feed">
+      <div class="feed-head">
+        <span class="live-dot" style="width:6px;height:6px;"></span>
+        Live payouts
+      </div>
+      <div class="feed-row">
+        <div>
+          <div class="feed-name">Jake R.</div>
+          <div class="feed-meta">PayPal &middot; 2 min ago</div>
+        </div>
+        <div class="feed-amt">+$47.00</div>
+      </div>
+      <div class="feed-row">
+        <div>
+          <div class="feed-name">Marcus T.</div>
+          <div class="feed-meta">Amazon Gift Card &middot; 6 min ago</div>
+        </div>
+        <div class="feed-amt">+$25.00</div>
+      </div>
+      <div class="feed-row">
+        <div>
+          <div class="feed-name">Dani K.</div>
+          <div class="feed-meta">Cash App &middot; 11 min ago</div>
+        </div>
+        <div class="feed-amt">+$15.50</div>
+      </div>
+      <div class="feed-row">
+        <div>
+          <div class="feed-name">Alex M.</div>
+          <div class="feed-meta">Crypto &middot; 14 min ago</div>
+        </div>
+        <div class="feed-amt">+$32.00</div>
+      </div>
+    </div>
+
+    <!-- Bullets -->
+    <div class="bullets">
+      <div class="bullets-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>Play games, complete quick tasks, get paid</span>
+      </div>
+      <div class="bullets-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>Cash out to PayPal, Amazon, crypto, or Cash App</span>
+      </div>
+      <div class="bullets-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>Free to join &mdash; no credit card required</span>
+      </div>
+      <div class="bullets-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>Takes ~1 min to sign up and start earning</span>
+      </div>
+    </div>
+
+    <!-- Testimonials -->
+    <div class="tstack">
+      <div class="tstack-head">What users are saying</div>
+      <div class="t">
+        <div class="t-head">
+          <div class="t-av">J</div>
+          <div>
+            <div class="t-name">Jake R.</div>
+            <div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          </div>
+        </div>
+        <p class="t-text">&ldquo;Cashed out $47 my first week just playing games on my breaks.&rdquo;</p>
+      </div>
+      <div class="t">
+        <div class="t-head">
+          <div class="t-av">D</div>
+          <div>
+            <div class="t-name">Dani K.</div>
+            <div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          </div>
+        </div>
+        <p class="t-text">&ldquo;Easiest signup ever. Got my first payout to PayPal in 3 days.&rdquo;</p>
+      </div>
+    </div>
+
+    <!-- Final CTA -->
+    <a href="#" class="cta" style="margin-top:28px;" data-offer="freecash" data-link="https://trk.ssaff.link/gth-freecash" onclick="handleOfferClick(event, this)">
+      Claim My $10 Bonus
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <p class="cta-sub">Free &middot; No credit card &middot; ~1 min to sign up and start earning</p>
+
+  </main>
+
+  <!-- Sticky bottom CTA -->
+  <div class="sticky">
+    <a href="#" class="cta" data-offer="freecash" data-link="https://trk.ssaff.link/gth-freecash" onclick="handleOfferClick(event, this)">
+      Claim My $10 Bonus
+    </a>
+  </div>
+
+  <footer>
+    &copy; 2026 &middot; All rights reserved
+  </footer>
+
+  <script>
+    function getCmcVid() {
+      var cmc = window.clickmagick_cmc;
+      if (cmc && cmc.vid) return cmc.vid;
+      if (cmc && cmc.cmc_vid) return cmc.cmc_vid;
+      var match = document.cookie.match(/cmc_vid=([^;]+)/);
+      return match ? match[1] : '';
+    }
+
+    function generateEventId() {
+      return 'gthl_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    }
+
+    function handleOfferClick(event, btn) {
+      if (event && event.preventDefault) event.preventDefault();
+      var offerName = btn.getAttribute('data-offer');
+      var smartLink = btn.getAttribute('data-link');
+      var cmcVid = getCmcVid();
+      var eventId = generateEventId();
+
+      if (typeof fbq !== 'undefined') {
+        fbq('track', 'Lead', { content_name: offerName }, { eventID: eventId });
+      }
+      if (window.clickmagick_cmc && window.clickmagick_cmc.log) {
+        window.clickmagick_cmc.log('a', 'optin');
+      }
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'generate_lead', {
+          funnel_name: 'gth_lander',
+          offer_name: offerName,
+          event_id: eventId,
+        });
+      }
+
+      var url = cmcVid ? smartLink + '/' + encodeURIComponent(cmcVid) : smartLink;
+      window.location.href = url;
+    }
+
+    // Live counter (matches narrative across pages)
+    (function () {
+      var el = document.getElementById('live-count');
+      if (!el) return;
+      var base = 4521 + Math.floor(Math.random() * 18);
+      el.textContent = base.toLocaleString();
+      function tick() {
+        base += 1;
+        el.textContent = base.toLocaleString();
+        setTimeout(tick, 8000 + Math.random() * 14000);
+      }
+      setTimeout(tick, 8000 + Math.random() * 14000);
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,16 +1,12 @@
 /**
  * GameTestersHub - Quiz Funnel
- * 5-step engagement quiz + contact form
- * Page-based funnel (not modal)
+ * 3-step micro-commitment quiz, no lead capture.
+ * Flow: Q1 -> Q2 -> Q3 -> matching animation -> offers page
  */
-
-// Same-origin proxy = no CORS, no external deps
-const SUBMIT_URL = '/api/submit-lead';
-
 
 // Quiz state
 let currentStep = 1;
-const totalSteps = 4;
+const totalSteps = 3;
 const quizAnswers = {};
 
 // Quiz data
@@ -87,7 +83,7 @@ function updateProgress() {
     if (currentStep <= quizSteps.length && quizSteps[currentStep - 1].progressLabel) {
       label = quizSteps[currentStep - 1].progressLabel;
     } else if (currentStep > quizSteps.length) {
-      label = 'Just your info';
+      label = 'Finding your match';
     }
     progressLabel.textContent = label;
   }
@@ -139,8 +135,7 @@ function renderStep() {
         </div>
       `;
     } else {
-      // Render contact form
-      renderContactForm();
+      renderMatching();
     }
     
     // Fade in
@@ -206,181 +201,81 @@ function selectOption(questionId, value, button) {
 }
 
 /**
- * Render contact form (final step)
+ * After the final quiz question, play a 3s matching animation and redirect
+ * to the offers page. Sunk-cost design: the animation + quiz progress carry
+ * the user past Freecash's own first-question drop-off.
  */
-function renderContactForm() {
+function renderMatching() {
   const container = document.getElementById('funnel-content');
-  
+  const backNav = document.getElementById('funnel-nav');
+  if (backNav) backNav.style.display = 'none';
+
   container.innerHTML = `
-    <div class="funnel-step">
-      <h2 class="funnel-question">Last step &mdash; where should we send your match?</h2>
-      <p class="funnel-subtext">No spam. No credit card. Unsubscribe anytime.</p>
-
-      <form class="funnel-form" onsubmit="submitForm(event)">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="first_name">First Name</label>
-            <input type="text" id="first_name" name="first_name" placeholder="John" required>
-          </div>
-          <div class="form-group">
-            <label for="last_name">Last Name</label>
-            <input type="text" id="last_name" name="last_name" placeholder="Smith" required>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="john@example.com" required>
-        </div>
-        <div class="form-group">
-          <label for="phone">Phone Number</label>
-          <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" required>
-        </div>
-        <div class="form-group">
-          <label for="zip">Zip Code</label>
-          <input type="text" id="zip" name="zip" placeholder="12345" required pattern="[0-9]{5}" maxlength="5">
-        </div>
-        <button type="submit" class="funnel-submit" id="submit-btn">
-          Show My Match
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </button>
-        <p class="form-disclaimer">
-          By submitting, you agree to receive emails about this offer. Unsubscribe anytime.
-        </p>
-      </form>
+    <div class="funnel-step" style="text-align:center;padding:40px 20px;">
+      <div class="matching-spinner" style="
+        width:56px;height:56px;
+        border:4px solid rgba(139,92,246,0.2);
+        border-top-color:#8b5cf6;
+        border-radius:50%;
+        margin:0 auto 24px;
+        animation:spin 0.8s linear infinite;
+      "></div>
+      <h2 class="funnel-question" id="matching-text">Matching you with the best offer...</h2>
+      <p class="funnel-subtext" id="matching-sub" style="margin-top:12px;">
+        Checking based on your answers
+      </p>
     </div>
+    <style>
+      @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
   `;
-}
 
-/**
- * Ensure tracking is ready (event_id exists). No fallback UUID - prevents dedup mismatch.
- * @returns {{ trackingInfo: object, eventId: string } | null} - null if not ready
- */
-function ensureTrackingReady() {
-  if (!window.GameTestersTracking) return null;
-  var trackingInfo = window.GameTestersTracking.getTrackingData();
-  if (!trackingInfo || !trackingInfo.event_id) return null;
-  return { trackingInfo: trackingInfo, eventId: trackingInfo.event_id };
-}
+  const messages = [
+    { delay: 0,    text: 'Matching you with the best offer...', sub: 'Checking based on your answers' },
+    { delay: 1200, text: 'Found a match.',                      sub: 'Finalizing your recommendation' },
+    { delay: 2400, text: 'You\'re matched.',                    sub: 'Redirecting...' }
+  ];
 
-/**
- * Submit form
- */
-async function submitForm(event) {
-  event.preventDefault();
+  messages.forEach(m => {
+    setTimeout(() => {
+      const t = document.getElementById('matching-text');
+      const s = document.getElementById('matching-sub');
+      if (t) t.textContent = m.text;
+      if (s) s.textContent = m.sub;
+    }, m.delay);
+  });
 
-  var submitBtn = document.getElementById('submit-btn');
-  var originalHTML = submitBtn.innerHTML;
-
-  // Wait for tracking.event_id — no fallback UUID (root cause of dedup mismatch)
-  var ready = ensureTrackingReady();
-  if (!ready) {
-    console.error('[GTH Lead] Tracking not ready - event_id missing. Blocking submit.');
-    submitBtn.innerHTML = 'Loading... please try again';
-    submitBtn.disabled = false;
-    setTimeout(function() {
-      submitBtn.innerHTML = originalHTML;
-    }, 2000);
-    return;
-  }
-
-  var trackingInfo = ready.trackingInfo;
-  var eventId = ready.eventId;
-
-  // uuid always from getOrCreateSessionUuid (never undefined)
-  var uuid = trackingInfo.uuid;
-  if (!uuid && window.GameTestersTracking.getOrCreateSessionUuid) {
-    uuid = window.GameTestersTracking.getOrCreateSessionUuid();
-  }
-
-  // GA4: quiz completion (not Lead — Lead fires on offer wall click)
+  // GA4: quiz completion (Lead pixel still fires on offer click, not here)
   if (typeof gtag !== 'undefined') {
-    gtag('set', 'user_properties', {
-      user_game_preference: quizAnswers.game_preference || '',
-      user_platform: quizAnswers.platform || '',
-      user_availability: quizAnswers.availability || '',
-    });
     gtag('event', 'quiz_complete', {
       funnel_name: 'gth_quiz',
-      game_preference: quizAnswers.game_preference,
-      platform: quizAnswers.platform,
-      event_id: eventId,
+      interest: quizAnswers.interest,
+      payout_method: quizAnswers.payout_method,
+      time_available: quizAnswers.time_available,
     });
   }
 
-  // Lead pixel moved to offer wall page — fires on offer click, not quiz submit
-
-  console.log('[GTH Lead] PIXEL event_id:', JSON.stringify(eventId), 'length:', eventId.length, 'bytes:', new TextEncoder().encode(eventId).length);
-  console.log('[GTH Lead] uuid for external_id:', uuid ? 'present' : 'MISSING', uuid);
-
-  var payload = {
-    email: document.getElementById('email').value.trim(),
-    firstName: document.getElementById('first_name').value.trim(),
-    lastName: document.getElementById('last_name').value.trim(),
-    phone: document.getElementById('phone').value.trim(),
-    zip: document.getElementById('zip').value.trim(),
-    uuid: uuid,
-    fbc: trackingInfo.fbc || null,
-    fbclid: trackingInfo.fbclid || null,
-    fbp: trackingInfo.fbp || null,
-    source: 'gametestershub',
-    event_id: eventId,
-    event_source_url: typeof window !== 'undefined' ? window.location.href : undefined,
-    user_agent: typeof navigator !== 'undefined' ? navigator.userAgent : undefined
-  };
-
-  console.log('[GTH Lead] CAPI payload event_id:', JSON.stringify(payload.event_id), 'uuid:', JSON.stringify(payload.uuid));
-
-  submitBtn.disabled = true;
-  submitBtn.innerHTML = '<span class="loading"></span>Submitting...';
-
-  try {
-    var res = await fetch(SUBMIT_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    if (!res.ok) console.error('submit-lead:', res.status, await res.text());
-
-    if (window.GameTestersTracking && window.GameTestersTracking.clearLeadEventId) {
-      window.GameTestersTracking.clearLeadEventId();
-    }
-    window.location.href = buildContinueUrl(trackingInfo, payload);
-  } catch (err) {
-    console.error('Submission error:', err);
-    submitBtn.disabled = false;
-    submitBtn.innerHTML = originalHTML;
-    var fallbackInfo = window.GameTestersTracking ? window.GameTestersTracking.getTrackingData() : {};
-    window.location.href = buildContinueUrl(fallbackInfo, payload);
-  }
+  setTimeout(() => {
+    const trackingInfo = window.GameTestersTracking
+      ? (window.GameTestersTracking.getTrackingData() || {})
+      : {};
+    window.location.href = buildOffersUrl(trackingInfo);
+  }, 3200);
 }
 
 /**
- * Build continue page URL with tracking parameters
- * Continue page handles the scanning animation before showing the offer
- * Passes cmc_ parameters for ClickMagick cross-device tracking
+ * Build offers URL with tracking params. No PII (no form capture).
  */
-function buildContinueUrl(trackingInfo, formData) {
+function buildOffersUrl(trackingInfo) {
   const params = new URLSearchParams();
-
-  if (trackingInfo.fbclid) params.set('fbclid', trackingInfo.fbclid);
-  if (trackingInfo.fbc) params.set('fbc', trackingInfo.fbc);
-  if (trackingInfo.fbp) params.set('fbp', trackingInfo.fbp);
-  if (trackingInfo.uuid) params.set('uuid', trackingInfo.uuid);
+  if (trackingInfo.fbclid)   params.set('fbclid', trackingInfo.fbclid);
+  if (trackingInfo.fbc)      params.set('fbc', trackingInfo.fbc);
+  if (trackingInfo.fbp)      params.set('fbp', trackingInfo.fbp);
+  if (trackingInfo.uuid)     params.set('uuid', trackingInfo.uuid);
   if (trackingInfo.event_id) params.set('event_id', trackingInfo.event_id);
 
-  // ClickMagick cross-device tracking: cmc_ params picked up by cmc.js on continue page
-  if (formData) {
-    if (formData.email) params.set('cmc_email', formData.email);
-    if (formData.firstName) params.set('cmc_firstname', formData.firstName);
-    if (formData.lastName) params.set('cmc_lastname', formData.lastName);
-    if (formData.phone) params.set('cmc_phone', formData.phone);
-    if (formData.zip) params.set('cmc_postal_code', formData.zip);
-  }
-
-  const queryString = params.toString();
-  return queryString ? `/offers?${queryString}` : '/offers';
+  const qs = params.toString();
+  return qs ? `/offers?${qs}` : '/offers';
 }
 
 /**

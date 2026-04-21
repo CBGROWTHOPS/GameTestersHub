@@ -32,7 +32,6 @@ const quizSteps = [
     question: 'How do you want to get paid?',
     subtext: 'Real cashouts. Over 2 million users have been paid out.',
     progressLabel: 'Halfway there',
-    showTestimonial: true,
     options: [
       { value: 'paypal', label: 'PayPal' },
       { value: 'amazon', label: 'Amazon Gift Card' },

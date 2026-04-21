@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How I've been getting lunch paid for every day</title>
+  <meta name="description" content="I stopped paying for lunch months ago — here's the app that covers it, plus a $10 bonus to start.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    window.clickmagick_cmc = {
+      uid: '211897',
+      hid: '2728055707',
+      cmc_project: 'GTH - SSAFF',
+      vid_info: 'on',
+      utm_source: 'organic',
+    }
+  </script>
+  <script src='//cm.ssaff.link/cmc.js'></script>
+
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1635681097458226');
+    fbq('track', 'PageView');
+  </script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5SNR88E3EX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5SNR88E3EX');
+  </script>
+
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg-card: #1a1a25;
+      --text: #ffffff;
+      --text-dim: #a0a0b0;
+      --neon: #39ff14;
+      --neon-dim: rgba(57, 255, 20, 0.5);
+      --border: rgba(255, 255, 255, 0.1);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Live counter strip */
+    .live-strip {
+      background: rgba(34, 197, 94, 0.08);
+      border-bottom: 1px solid rgba(34, 197, 94, 0.2);
+      color: #86efac;
+      text-align: center;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .live-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 4px rgba(34,197,94,0.2); }
+      50% { box-shadow: 0 0 0 8px rgba(34,197,94,0); }
+    }
+
+    .wrap {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 28px 20px 120px;
+    }
+
+    /* Hero */
+    .bonus-pill {
+      display: inline-block;
+      padding: 6px 14px;
+      background: rgba(57, 255, 20, 0.12);
+      border: 1px solid rgba(57, 255, 20, 0.4);
+      color: var(--neon);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border-radius: 100px;
+      text-shadow: 0 0 6px var(--neon-dim);
+      margin-bottom: 14px;
+    }
+    h1 {
+      font-size: 28px;
+      line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .hero-sub {
+      margin-top: 10px;
+      font-size: 15px;
+      color: var(--text-dim);
+    }
+    .hero-sub strong {
+      color: var(--neon);
+      text-shadow: 0 0 6px var(--neon-dim);
+    }
+    .byline {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 18px;
+      padding: 12px 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+    .byline-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .byline-text { font-size: 13px; color: var(--text-dim); }
+    .byline-text strong { color: var(--text); }
+
+    /* Primary CTA */
+    .cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      margin: 22px 0;
+      padding: 16px 18px;
+      font-size: 16px;
+      font-weight: 800;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--neon), #00d632);
+      color: #0a0a0f;
+      box-shadow: 0 0 28px rgba(57, 255, 20, 0.45);
+      font-family: inherit;
+      text-decoration: none;
+      transition: transform 0.15s;
+    }
+    .cta:hover, .cta:active { transform: translateY(-1px); }
+    .cta-sub {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-top: -12px;
+      margin-bottom: 8px;
+    }
+
+    /* Story block */
+    .story {
+      margin-top: 10px;
+      padding-top: 22px;
+      border-top: 1px solid var(--border);
+    }
+    .story p { margin-bottom: 14px; font-size: 16px; color: #d4d4d8; }
+    .story p strong { color: var(--text); }
+    .story .neon { color: var(--neon); font-weight: 700; text-shadow: 0 0 6px var(--neon-dim); }
+
+    /* Proof screenshot box */
+    .proof {
+      margin: 22px 0;
+      padding: 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+    .proof-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+    .proof-row:last-child { border-bottom: none; }
+    .proof-label { color: var(--text-dim); }
+    .proof-val { font-weight: 700; }
+    .proof-val.pos { color: var(--neon); }
+
+    /* Testimonials */
+    .testimonials { margin: 28px 0; }
+    .testimonials h3 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+    .t-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      display: flex;
+      gap: 12px;
+    }
+    .t-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .t-stars { color: #fbbf24; font-size: 13px; letter-spacing: 1px; }
+    .t-text { font-size: 14px; color: #e5e5e5; margin: 4px 0 2px; line-height: 1.4; }
+    .t-name { font-size: 12px; color: var(--text-dim); }
+
+    /* FAQ */
+    .faq { margin-top: 28px; }
+    .faq h3 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 8px;
+    }
+    .faq-q { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+    .faq-a { font-size: 14px; color: var(--text-dim); line-height: 1.5; }
+
+    /* Sticky bottom CTA (mobile) */
+    .sticky-cta {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+      background: linear-gradient(to top, var(--bg) 70%, rgba(10, 10, 15, 0));
+      z-index: 50;
+    }
+    .sticky-cta .cta { margin: 0; }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 12px;
+      color: var(--text-dim);
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Live match counter -->
+  <div class="live-strip">
+    <span class="live-dot"></span>
+    <span><span id="live-count">4,521</span> people matched this week</span>
+  </div>
+
+  <main class="wrap">
+
+    <!-- Hero -->
+    <span class="bonus-pill">&#127881; $10 Signup Bonus</span>
+    <h1>How I've been getting my lunch paid for every day</h1>
+    <p class="hero-sub">Short version: I play games on my phone for 10 min during breaks, cash out covers my lunch. <strong>$10 bonus</strong> just for signing up.</p>
+
+    <div class="byline">
+      <div class="byline-avatar">J</div>
+      <div class="byline-text"><strong>Jake R.</strong> &middot; Posted 3 days ago &middot; Edited</div>
+    </div>
+
+    <a href="#" class="cta" data-offer="freecash" data-link="https://trk.ssaff.link/gth-freecash" onclick="handleOfferClick(event, this)">
+      Claim My $10 Bonus
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <p class="cta-sub">Free &middot; No credit card &middot; Takes 2 min</p>
+
+    <!-- Story -->
+    <div class="story">
+      <p>Real talk &mdash; I was dropping <strong>$15&ndash;$18 a day</strong> on Chipotle, wings, whatever. That's like <strong>$400+ a month</strong> on lunch alone. Something had to give.</p>
+      <p>A buddy of mine said he'd been using this app called <strong>Freecash</strong> &mdash; you play mobile games or do quick tasks and they pay you in PayPal, Amazon gift cards, crypto, or Cash App. I thought it was a scam. It's not.</p>
+      <p>I signed up, got the <span class="neon">$10 bonus</span> instantly, and started playing a game during my commute. By the end of the week I had cashed out enough to cover four lunches. Now it's just automatic &mdash; I do it while I'm watching TV or waiting in line.</p>
+    </div>
+
+    <!-- Proof -->
+    <div class="proof">
+      <div class="proof-row">
+        <span class="proof-label">Signup bonus</span>
+        <span class="proof-val pos">+$10.00</span>
+      </div>
+      <div class="proof-row">
+        <span class="proof-label">Last 7 days earned</span>
+        <span class="proof-val pos">+$62.40</span>
+      </div>
+      <div class="proof-row">
+        <span class="proof-label">Paid out to PayPal</span>
+        <span class="proof-val">$47.00</span>
+      </div>
+      <div class="proof-row">
+        <span class="proof-label">Current balance</span>
+        <span class="proof-val">$25.40</span>
+      </div>
+    </div>
+
+    <a href="#" class="cta" data-offer="freecash" data-link="https://trk.ssaff.link/gth-freecash" onclick="handleOfferClick(event, this)">
+      Start My Account &middot; Claim $10
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+
+    <!-- Testimonials -->
+    <div class="testimonials">
+      <h3>What others are saying</h3>
+      <div class="t-card">
+        <div class="t-avatar">M</div>
+        <div>
+          <div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="t-text">&ldquo;Didn't believe it at first but I've been eating out on this for a month now.&rdquo;</p>
+          <p class="t-name">&mdash; Marcus T.</p>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="t-avatar">D</div>
+        <div>
+          <div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="t-text">&ldquo;Easiest signup ever. Got my first payout to PayPal in 3 days.&rdquo;</p>
+          <p class="t-name">&mdash; Dani K.</p>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="t-avatar">A</div>
+        <div>
+          <div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="t-text">&ldquo;I literally just do this on my lunch break. $200 last month. Not life-changing but it's lunch for free lol.&rdquo;</p>
+          <p class="t-name">&mdash; Alex M.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq">
+      <h3>Quick questions</h3>
+      <div class="faq-item">
+        <div class="faq-q">Is it actually free?</div>
+        <div class="faq-a">Yes. No credit card, no downloads required. You can use it in your phone browser.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do they really pay out?</div>
+        <div class="faq-a">Over 2 million users have been paid. Cashouts go to PayPal, Amazon, crypto, or Cash App.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How much time does it take?</div>
+        <div class="faq-a">Most people do 10&ndash;20 min a day on breaks or while watching TV. The more you do, the more you earn &mdash; no minimum.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What's the catch?</div>
+        <div class="faq-a">Honestly, none. Freecash gets paid by game studios and advertisers to drive users. You get a cut.</div>
+      </div>
+    </div>
+
+    <a href="#" class="cta" data-offer="freecash" data-link="https://trk.ssaff.link/gth-freecash" onclick="handleOfferClick(event, this)">
+      Claim My $10 Bonus
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <p class="cta-sub">Takes 2 min &middot; No credit card</p>
+
+  </main>
+
+  <!-- Sticky bottom CTA -->
+  <div class="sticky-cta">
+    <a href="#" class="cta" data-offer="freecash" data-link="https://trk.ssaff.link/gth-freecash" onclick="handleOfferClick(event, this)">
+      Claim My $10 Bonus
+    </a>
+  </div>
+
+  <footer>
+    &copy; 2026 &middot; All rights reserved
+  </footer>
+
+  <script>
+    function getCmcVid() {
+      var cmc = window.clickmagick_cmc;
+      if (cmc && cmc.vid) return cmc.vid;
+      if (cmc && cmc.cmc_vid) return cmc.cmc_vid;
+      var match = document.cookie.match(/cmc_vid=([^;]+)/);
+      return match ? match[1] : '';
+    }
+
+    function generateEventId() {
+      return 'gthb_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    }
+
+    function handleOfferClick(event, btn) {
+      if (event && event.preventDefault) event.preventDefault();
+      var offerName = btn.getAttribute('data-offer');
+      var smartLink = btn.getAttribute('data-link');
+      var cmcVid = getCmcVid();
+      var eventId = generateEventId();
+
+      if (typeof fbq !== 'undefined') {
+        fbq('track', 'Lead', { content_name: offerName }, { eventID: eventId });
+      }
+      if (window.clickmagick_cmc && window.clickmagick_cmc.log) {
+        window.clickmagick_cmc.log('a', 'optin');
+      }
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'generate_lead', {
+          funnel_name: 'gth_bridge',
+          offer_name: offerName,
+          event_id: eventId,
+        });
+      }
+
+      var url = cmcVid ? smartLink + '/' + encodeURIComponent(cmcVid) : smartLink;
+      window.location.href = url;
+    }
+
+    // Live counter — ticks up to match narrative with offers page
+    (function () {
+      var el = document.getElementById('live-count');
+      if (!el) return;
+      var base = 4521 + Math.floor(Math.random() * 18);
+      el.textContent = base.toLocaleString();
+      function tick() {
+        base += 1;
+        el.textContent = base.toLocaleString();
+        setTimeout(tick, 8000 + Math.random() * 14000);
+      }
+      setTimeout(tick, 8000 + Math.random() * 14000);
+    })();
+  </script>
+
+</body>
+</html>

@@ -16,6 +16,16 @@ const quizAnswers = {};
 // Quiz data
 const quizSteps = [
   {
+    id: 'interest',
+    question: 'Would you use an app that pays for your lunch every day?',
+    options: [
+      { value: 'yes_show', label: 'Yes, show me how' },
+      { value: 'obviously', label: 'Obviously' },
+      { value: 'if_works', label: 'If it actually works, yeah' },
+      { value: 'try', label: 'I\'d try it' }
+    ]
+  },
+  {
     id: 'payout_method',
     question: 'How do you want to get paid?',
     options: [
@@ -33,16 +43,6 @@ const quizSteps = [
       { value: '15_30', label: '15 - 30 minutes' },
       { value: '30_60', label: '30 - 60 minutes' },
       { value: '60_plus', label: '1+ hours' }
-    ]
-  },
-  {
-    id: 'earnings_use',
-    question: 'What would you use the earnings for?',
-    options: [
-      { value: 'food', label: 'Food / eating out' },
-      { value: 'bills', label: 'Bills' },
-      { value: 'fun', label: 'Extra spending money' },
-      { value: 'savings', label: 'Save it' }
     ]
   }
 ];

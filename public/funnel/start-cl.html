@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Remote Gig Application - GameTestersHub</title>
+  <meta name="description" content="Quick 3-question application for remote gig work.">
+  <link rel="stylesheet" href="/funnel/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- ClickMagick Click Tracking + Action (Lead) on form submit -->
+  <script>
+    window.clickmagick_cmc = {
+      uid: '211897',
+      hid: '2728055707',
+      cmc_project: 'GTH - SSAFF',
+      vid_info: 'on',
+      utm_source: 'craigslist',
+      utm_medium: 'classified',
+    }
+  </script>
+  <script src='//cm.ssaff.link/cmc.js'></script>
+</head>
+<body class="funnel-page">
+  <!-- Live match counter (social proof) -->
+  <div id="live-counter" style="background:rgba(34,197,94,0.08);border-bottom:1px solid rgba(34,197,94,0.2);color:#86efac;text-align:center;padding:8px 16px;font-size:13px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:8px;">
+    <span style="display:inline-block;width:8px;height:8px;background:#22c55e;border-radius:50%;box-shadow:0 0 0 4px rgba(34,197,94,0.2);animation:pulse 2s infinite;"></span>
+    <span><span id="live-count">4,521</span> gigs filled this week</span>
+  </div>
+  <style>
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 4px rgba(34,197,94,0.2); }
+      50% { box-shadow: 0 0 0 8px rgba(34,197,94,0); }
+    }
+  </style>
+
+  <div class="funnel-container">
+    <!-- Progress -->
+    <div class="funnel-progress-wrapper">
+      <div class="funnel-progress">
+        <div class="funnel-progress-bar" id="progress-bar"></div>
+      </div>
+      <div class="funnel-step-indicator">
+        <span id="progress-label">Quick start</span>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="funnel-content" id="funnel-content">
+      <!-- Steps rendered by quiz.js -->
+    </main>
+
+    <!-- Back Button -->
+    <div class="funnel-nav" id="funnel-nav" style="display: none;">
+      <button class="funnel-back" onclick="goBack()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back
+      </button>
+    </div>
+
+    <!-- Trust Badge -->
+    <div class="funnel-trust">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      </svg>
+      <span>Your information is secure and never shared</span>
+    </div>
+  </div>
+
+  <script src="/funnel/tracking.js"></script>
+  <script src="/funnel/quiz-cl.js"></script>
+  <script>
+    // Live counter — increments randomly every 8-22s to feel organic.
+    // Base matches offers.html ("4,521 people matched this week") so the
+    // number is consistent across pages.
+    (function () {
+      var el = document.getElementById('live-count');
+      if (!el) return;
+      var base = 4521 + Math.floor(Math.random() * 18);
+      el.textContent = base.toLocaleString();
+      function tick() {
+        base += 1;
+        el.textContent = base.toLocaleString();
+        setTimeout(tick, 8000 + Math.random() * 14000);
+      }
+      setTimeout(tick, 8000 + Math.random() * 14000);
+    })();
+  </script>
+</body>
+</html>

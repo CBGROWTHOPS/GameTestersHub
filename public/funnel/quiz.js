@@ -13,7 +13,7 @@ const quizAnswers = {};
 const quizSteps = [
   {
     id: 'interest',
-    question: 'Would you use an app that pays for your lunch every day?',
+    question: 'Would you take paid online work if it only took 15 minutes a day?',
     subtext: '100% free. No credit card, no downloads.',
     progressLabel: 'Quick start',
     options: [

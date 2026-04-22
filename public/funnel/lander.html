@@ -436,7 +436,7 @@
     </div>
 
     <!-- Primary CTA -->
-    <a href="#" class="cta" data-offer="freecash" data-link="https://trk.ssaff.link/gth-freecash" onclick="handleOfferClick(event, this)">
+    <a href="#" class="cta" data-offer="freecash" data-position="primary" data-link="https://trk.ssaff.link/gth-freecash" onclick="handleOfferClick(event, this)">
       Claim My $10 Bonus
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
@@ -599,7 +599,7 @@
     </div>
 
     <!-- Final CTA -->
-    <a href="#" class="cta" style="margin-top:28px;" data-offer="freecash" data-link="https://trk.ssaff.link/gth-freecash" onclick="handleOfferClick(event, this)">
+    <a href="#" class="cta" style="margin-top:28px;" data-offer="freecash" data-position="final" data-link="https://trk.ssaff.link/gth-freecash" onclick="handleOfferClick(event, this)">
       Claim My $10 Bonus
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
@@ -609,7 +609,7 @@
 
   <!-- Sticky bottom CTA -->
   <div class="sticky">
-    <a href="#" class="cta" data-offer="freecash" data-link="https://trk.ssaff.link/gth-freecash" onclick="handleOfferClick(event, this)">
+    <a href="#" class="cta" data-offer="freecash" data-position="sticky" data-link="https://trk.ssaff.link/gth-freecash" onclick="handleOfferClick(event, this)">
       Claim My $10 Bonus
     </a>
   </div>
@@ -631,12 +631,17 @@
       return 'gthl_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
     }
 
+    // Captured at page load so we can measure engagement duration before click.
+    var pageLoadTime = Date.now();
+
     function handleOfferClick(event, btn) {
       if (event && event.preventDefault) event.preventDefault();
       var offerName = btn.getAttribute('data-offer');
+      var ctaPosition = btn.getAttribute('data-position') || 'unknown';
       var smartLink = btn.getAttribute('data-link');
       var cmcVid = getCmcVid();
       var eventId = generateEventId();
+      var timeOnPageSec = Math.round((Date.now() - pageLoadTime) / 1000);
 
       if (typeof fbq !== 'undefined') {
         fbq('track', 'Lead', { content_name: offerName }, { eventID: eventId });
@@ -648,6 +653,16 @@
         gtag('event', 'generate_lead', {
           funnel_name: 'gth_lander',
           offer_name: offerName,
+          cta_position: ctaPosition,
+          time_on_page_sec: timeOnPageSec,
+          event_id: eventId,
+        });
+        // Dedicated terminal-click conversion — mark this as a Key Event in GA4.
+        gtag('event', 'offer_redirect', {
+          funnel_name: 'gth_lander',
+          offer_name: offerName,
+          cta_position: ctaPosition,
+          time_on_page_sec: timeOnPageSec,
           event_id: eventId,
         });
       }
